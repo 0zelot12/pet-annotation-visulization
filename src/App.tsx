@@ -10,7 +10,6 @@ import {
   Stat,
   StatLabel,
   StatNumber,
-  Divider,
   StatGroup,
   TabList,
   Tab,
@@ -28,6 +27,15 @@ export interface AnnotationResult {
   precision: number
   recall: number
   f1Score: number
+  precisionActor: number
+  recallActor: number
+  f1ScoreActor: number
+  precisionActivity: number
+  recallActivity: number
+  f1ScoreActivity: number
+  precisionActivityData: number
+  recallActivityData: number
+  f1ScoreActivityData: number
   tokens: string[]
   presentEntities: Entity[]
   recognizedEntities: Entity[]
@@ -90,6 +98,15 @@ export default function App() {
       precision: importedData.metrics.precision,
       recall: importedData.metrics.recall,
       f1Score: importedData.metrics.f1_score,
+      precisionActor: importedData.metrics.actor_precision,
+      recallActor: importedData.metrics.actor_recall,
+      f1ScoreActor: importedData.metrics.actor_f1_score,
+      precisionActivity: importedData.metrics.activity_precision,
+      recallActivity: importedData.metrics.activity_recall,
+      f1ScoreActivity: importedData.metrics.activity_f1_score,
+      precisionActivityData: importedData.metrics.activity_data_precision,
+      recallActivityData: importedData.metrics.activity_data_recall,
+      f1ScoreActivityData: importedData.metrics.activity_data_f1_score,
       tokens: importedData.tokens,
       presentEntities: importedData.present_entities.map((e: { type: string; start_index: number; tokens: string[] }) => {
         return {
@@ -147,17 +164,14 @@ export default function App() {
                         <StatLabel>F1-Score</StatLabel>
                         <StatNumber>{annotationResult.f1Score}</StatNumber>
                       </Stat>
-                      <Divider orientation='vertical' />
                       <Stat>
                         <StatLabel>Recall</StatLabel>
                         <StatNumber>{annotationResult.recall}</StatNumber>
                       </Stat>
-                      <Divider orientation='vertical' />
                       <Stat>
                         <StatLabel>Precision</StatLabel>
                         <StatNumber>{annotationResult.precision}</StatNumber>
                       </Stat>
-                      <Divider orientation='vertical' />
                       <Stat>
                         <StatLabel>Length</StatLabel>
                         <StatNumber>{annotationResult.tokens.length}</StatNumber>
@@ -168,19 +182,16 @@ export default function App() {
                     <StatGroup>
                       <Stat>
                         <StatLabel>F1-Score</StatLabel>
-                        <StatNumber>{annotationResult.f1Score}</StatNumber>
+                        <StatNumber>{annotationResult.f1ScoreActor}</StatNumber>
                       </Stat>
-                      <Divider orientation='vertical' />
                       <Stat>
                         <StatLabel>Recall</StatLabel>
-                        <StatNumber>{annotationResult.recall}</StatNumber>
+                        <StatNumber>{annotationResult.recallActor}</StatNumber>
                       </Stat>
-                      <Divider orientation='vertical' />
                       <Stat>
                         <StatLabel>Precision</StatLabel>
-                        <StatNumber>{annotationResult.precision}</StatNumber>
+                        <StatNumber>{annotationResult.precisionActor}</StatNumber>
                       </Stat>
-                      <Divider orientation='vertical' />
                       <Stat>
                         <StatLabel>Length</StatLabel>
                         <StatNumber>{annotationResult.tokens.length}</StatNumber>
@@ -191,19 +202,16 @@ export default function App() {
                     <StatGroup>
                       <Stat>
                         <StatLabel>F1-Score</StatLabel>
-                        <StatNumber>{annotationResult.f1Score}</StatNumber>
+                        <StatNumber>{annotationResult.f1ScoreActivity}</StatNumber>
                       </Stat>
-                      <Divider orientation='vertical' />
                       <Stat>
                         <StatLabel>Recall</StatLabel>
-                        <StatNumber>{annotationResult.recall}</StatNumber>
+                        <StatNumber>{annotationResult.recallActivity}</StatNumber>
                       </Stat>
-                      <Divider orientation='vertical' />
                       <Stat>
                         <StatLabel>Precision</StatLabel>
-                        <StatNumber>{annotationResult.precision}</StatNumber>
+                        <StatNumber>{annotationResult.precisionActivity}</StatNumber>
                       </Stat>
-                      <Divider orientation='vertical' />
                       <Stat>
                         <StatLabel>Length</StatLabel>
                         <StatNumber>{annotationResult.tokens.length}</StatNumber>
@@ -214,19 +222,16 @@ export default function App() {
                     <StatGroup>
                       <Stat>
                         <StatLabel>F1-Score</StatLabel>
-                        <StatNumber>{annotationResult.f1Score}</StatNumber>
+                        <StatNumber>{annotationResult.f1ScoreActivityData}</StatNumber>
                       </Stat>
-                      <Divider orientation='vertical' />
                       <Stat>
                         <StatLabel>Recall</StatLabel>
-                        <StatNumber>{annotationResult.recall}</StatNumber>
+                        <StatNumber>{annotationResult.recallActivityData}</StatNumber>
                       </Stat>
-                      <Divider orientation='vertical' />
                       <Stat>
                         <StatLabel>Precision</StatLabel>
-                        <StatNumber>{annotationResult.precision}</StatNumber>
+                        <StatNumber>{annotationResult.precisionActivityData}</StatNumber>
                       </Stat>
-                      <Divider orientation='vertical' />
                       <Stat>
                         <StatLabel>Length</StatLabel>
                         <StatNumber>{annotationResult.tokens.length}</StatNumber>

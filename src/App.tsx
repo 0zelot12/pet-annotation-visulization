@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Box,
   Card,
@@ -123,17 +121,15 @@ export default function App() {
   return (
     <Box padding="2rem">
       <Heading mb={4}>PET Annotation Visualization</Heading>
-      <Divider orientation='vertical' />
       <Text fontSize='xl'>
         Select a file to display.
       </Text>
-      <Divider orientation='vertical' />
       <FileUpload onInput={handleInput} />
       {annotationResult &&
         <>
           <Card mt={4}>
             <CardHeader>
-              <Heading size='md'>Metrics</Heading>
+              <Heading size='md'>Entity metrics</Heading>
             </CardHeader>
             <CardBody>
               <Tabs variant='enclosed' colorScheme='green'>
@@ -142,6 +138,7 @@ export default function App() {
                   <Tab>Actor</Tab>
                   <Tab>Activity</Tab>
                   <Tab>Activity Data</Tab>
+                  <Tab>Further Specification</Tab>
                 </TabList>
                 <TabPanels>
                   <TabPanel>
@@ -234,7 +231,8 @@ export default function App() {
                         <StatLabel>Length</StatLabel>
                         <StatNumber>{annotationResult.tokens.length}</StatNumber>
                       </Stat>
-                    </StatGroup></TabPanel>
+                    </StatGroup>
+                  </TabPanel>
                 </TabPanels>
               </Tabs>
             </CardBody>

@@ -114,8 +114,6 @@ export default function App() {
       }),
     };
 
-    console.log(annotationResult)
-
     setAnnotationResult(annotationResult);
 
     toast({

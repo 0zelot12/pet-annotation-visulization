@@ -22,28 +22,26 @@ import { useState } from 'react'
 
 import FileUpload from './components/FileUpload'
 
-export interface AnnotationResult {
-  name: string
+export interface Metrics {
+  f1_score: number
   precision: number
   recall: number
-  f1Score: number
-  precisionActor: number
-  recallActor: number
-  f1ScoreActor: number
-  precisionActivity: number
-  recallActivity: number
-  f1ScoreActivity: number
-  precisionActivityData: number
-  recallActivityData: number
-  f1ScoreActivityData: number
+}
+
+export interface AnnotationResult {
+  name: string
+  overall: Metrics
+  actor: Metrics
+  activity: Metrics
+  activity_data: Metrics
   tokens: string[]
-  presentEntities: Entity[]
-  recognizedEntities: Entity[]
+  present_entities: Entity[]
+  recognized_entities: Entity[]
 }
 
 interface Entity {
   type: string
-  startIndex: number
+  start_index: number
   tokens: string[]
 }
 
@@ -62,7 +60,7 @@ export function Annotation({ text, type }: { text: string, type: string }) {
 export function AnnotationText({ tokens, entities }: { tokens: string[], entities: Entity[] }) {
   const result: { type: string, tokens: string[] }[] = [];
   for (let i = 0; i < tokens.length;) {
-    const matchedEntity = entities.find(e => e.startIndex === i);
+    const matchedEntity = entities.find(e => e.start_index === i);
     if (matchedEntity) {
       result.push({ type: matchedEntity.type, tokens: matchedEntity.tokens })
       i += matchedEntity.tokens.length
@@ -95,34 +93,28 @@ export default function App() {
 
     const annotationResult: AnnotationResult = {
       name: importedData.document_name,
-      precision: importedData.metrics.precision,
-      recall: importedData.metrics.recall,
-      f1Score: importedData.metrics.f1_score,
-      precisionActor: importedData.metrics.actor_precision,
-      recallActor: importedData.metrics.actor_recall,
-      f1ScoreActor: importedData.metrics.actor_f1_score,
-      precisionActivity: importedData.metrics.activity_precision,
-      recallActivity: importedData.metrics.activity_recall,
-      f1ScoreActivity: importedData.metrics.activity_f1_score,
-      precisionActivityData: importedData.metrics.activity_data_precision,
-      recallActivityData: importedData.metrics.activity_data_recall,
-      f1ScoreActivityData: importedData.metrics.activity_data_f1_score,
+      overall: { precision: importedData.metrics.overall.precision, recall: importedData.metrics.overall.recall, f1_score: importedData.metrics.overall.f1_score },
+      actor: { precision: importedData.metrics.actor.precision, recall: importedData.metrics.actor.recall, f1_score: importedData.metrics.actor.f1_score },
+      activity: { precision: importedData.metrics.activity.precision, recall: importedData.metrics.activity.recall, f1_score: importedData.metrics.activity.f1_score },
+      activity_data: { precision: importedData.metrics.activity_data.precision, recall: importedData.metrics.activity_data.recall, f1_score: importedData.metrics.activity_data.f1_score },
       tokens: importedData.tokens,
-      presentEntities: importedData.present_entities.map((e: { type: string; start_index: number; tokens: string[] }) => {
+      present_entities: importedData.present_entities.map((e: { type: string; start_index: number; tokens: string[] }) => {
         return {
           type: e.type,
-          startIndex: e.start_index,
+          start_index: e.start_index,
           tokens: e.tokens,
         }
       }),
-      recognizedEntities: importedData.recognized_entities.map((e: { type: string; start_index: number; tokens: string[] }) => {
+      recognized_entities: importedData.recognized_entities.map((e: { type: string; start_index: number; tokens: string[] }) => {
         return {
           type: e.type,
-          startIndex: e.start_index,
+          start_index: e.start_index,
           tokens: e.tokens,
         }
       }),
     };
+
+    console.log(annotationResult)
 
     setAnnotationResult(annotationResult);
 
@@ -162,15 +154,15 @@ export default function App() {
                     <StatGroup>
                       <Stat>
                         <StatLabel>F1-Score</StatLabel>
-                        <StatNumber>{annotationResult.f1Score}</StatNumber>
+                        <StatNumber>{annotationResult.overall.f1_score}</StatNumber>
                       </Stat>
                       <Stat>
                         <StatLabel>Recall</StatLabel>
-                        <StatNumber>{annotationResult.recall}</StatNumber>
+                        <StatNumber>{annotationResult.overall.recall}</StatNumber>
                       </Stat>
                       <Stat>
                         <StatLabel>Precision</StatLabel>
-                        <StatNumber>{annotationResult.precision}</StatNumber>
+                        <StatNumber>{annotationResult.overall.precision}</StatNumber>
                       </Stat>
                       <Stat>
                         <StatLabel>Length</StatLabel>
@@ -182,15 +174,15 @@ export default function App() {
                     <StatGroup>
                       <Stat>
                         <StatLabel>F1-Score</StatLabel>
-                        <StatNumber>{annotationResult.f1ScoreActor}</StatNumber>
+                        <StatNumber>{annotationResult.actor.f1_score}</StatNumber>
                       </Stat>
                       <Stat>
                         <StatLabel>Recall</StatLabel>
-                        <StatNumber>{annotationResult.recallActor}</StatNumber>
+                        <StatNumber>{annotationResult.actor.recall}</StatNumber>
                       </Stat>
                       <Stat>
                         <StatLabel>Precision</StatLabel>
-                        <StatNumber>{annotationResult.precisionActor}</StatNumber>
+                        <StatNumber>{annotationResult.actor.precision}</StatNumber>
                       </Stat>
                       <Stat>
                         <StatLabel>Length</StatLabel>
@@ -202,15 +194,15 @@ export default function App() {
                     <StatGroup>
                       <Stat>
                         <StatLabel>F1-Score</StatLabel>
-                        <StatNumber>{annotationResult.f1ScoreActivity}</StatNumber>
+                        <StatNumber>{annotationResult.activity.f1_score}</StatNumber>
                       </Stat>
                       <Stat>
                         <StatLabel>Recall</StatLabel>
-                        <StatNumber>{annotationResult.recallActivity}</StatNumber>
+                        <StatNumber>{annotationResult.activity.recall}</StatNumber>
                       </Stat>
                       <Stat>
                         <StatLabel>Precision</StatLabel>
-                        <StatNumber>{annotationResult.precisionActivity}</StatNumber>
+                        <StatNumber>{annotationResult.activity.precision}</StatNumber>
                       </Stat>
                       <Stat>
                         <StatLabel>Length</StatLabel>
@@ -222,15 +214,15 @@ export default function App() {
                     <StatGroup>
                       <Stat>
                         <StatLabel>F1-Score</StatLabel>
-                        <StatNumber>{annotationResult.f1ScoreActivityData}</StatNumber>
+                        <StatNumber>{annotationResult.activity_data.f1_score}</StatNumber>
                       </Stat>
                       <Stat>
                         <StatLabel>Recall</StatLabel>
-                        <StatNumber>{annotationResult.recallActivityData}</StatNumber>
+                        <StatNumber>{annotationResult.activity_data.recall}</StatNumber>
                       </Stat>
                       <Stat>
                         <StatLabel>Precision</StatLabel>
-                        <StatNumber>{annotationResult.precisionActivityData}</StatNumber>
+                        <StatNumber>{annotationResult.activity_data.precision}</StatNumber>
                       </Stat>
                       <Stat>
                         <StatLabel>Length</StatLabel>
@@ -251,7 +243,7 @@ export default function App() {
                 </Heading>
               </CardHeader>
               <CardBody>
-                <AnnotationText tokens={annotationResult.tokens} entities={annotationResult.recognizedEntities} />
+                <AnnotationText tokens={annotationResult.tokens} entities={annotationResult.recognized_entities} />
               </CardBody>
             </Card>
             <Card>
@@ -259,7 +251,7 @@ export default function App() {
                 <Heading size='md'>Reference</Heading>
               </CardHeader>
               <CardBody>
-                <AnnotationText tokens={annotationResult.tokens} entities={annotationResult.presentEntities} />
+                <AnnotationText tokens={annotationResult.tokens} entities={annotationResult.present_entities} />
               </CardBody>
             </Card>
           </SimpleGrid>

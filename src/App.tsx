@@ -1,10 +1,29 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Box, Button, Card, CardBody, CardHeader, Heading, SimpleGrid, Text } from '@chakra-ui/react'
-import { annotationResult } from './data'
+import {
+  Box,
+  Card,
+  CardBody,
+  CardHeader,
+  Heading,
+  SimpleGrid,
+  Text,
+  useToast,
+  Stat,
+  StatLabel,
+  StatNumber,
+  Divider,
+  StatGroup,
+} from '@chakra-ui/react'
+import { useState } from 'react'
+
+import FileUpload from './components/FileUpload'
 
 export interface AnnotationResult {
   name: string
+  precision: number
+  recall: number
+  f1Score: number
   tokens: string[]
   presentEntities: Entity[]
   recognizedEntities: Entity[]
@@ -18,13 +37,13 @@ interface Entity {
 
 export function Annotation({ text, type }: { text: string, type: string }) {
   if (type === "ACTIVITY") {
-    return <Text as='span' backgroundColor='teal.100'>{text}</Text>
+    return <Text as='span' backgroundColor='teal.100'>{text + ' '}</Text>
   } else if (type === "ACTIVITY_DATA") {
-    return <Text as='span' backgroundColor='orange.100'>{text}</Text>
+    return <Text as='span' backgroundColor='orange.100'>{text + ' '}</Text>
   } else if (type === "ACTOR") {
-    return <Text as='span' backgroundColor='red.100'>{text}</Text>
+    return <Text as='span' backgroundColor='red.100'>{text + ' '}</Text>
   } else {
-    return <Text as='span'>{text}</Text>
+    return text + ' '
   }
 }
 
@@ -41,38 +60,113 @@ export function AnnotationText({ tokens, entities }: { tokens: string[], entitie
     }
   }
   return (
-    <Text>{result.map(r => <Annotation type={r.type} text={r.tokens.join('')} />)}</Text>
+    <Text lineHeight={2}>{result.map(r => <Annotation type={r.type} text={r.tokens.join(' ')} />)}</Text>
   )
 }
 
 export default function App() {
+  const [annotationResult, setAnnotationResult] = useState<AnnotationResult | null>(null);
+
+  const toast = useToast();
+
+  const handleInput = async ($event: any) => {
+    const file = $event.target.files && $event.target.files[0];
+    if (!file) {
+      return;
+    }
+
+    // Reset file input
+    $event.target.value = null;
+
+    const dataString = await file.text();
+    const importedData = JSON.parse(dataString);
+
+    const annotationResult: AnnotationResult = {
+      name: importedData.document_name,
+      precision: importedData.metrics.precision,
+      recall: importedData.metrics.recall,
+      f1Score: importedData.metrics.f1_score,
+      tokens: importedData.tokens,
+      presentEntities: importedData.present_entities.map((e: { type: string; start_index: number; tokens: string[] }) => {
+        return {
+          type: e.type,
+          startIndex: e.start_index,
+          tokens: e.tokens,
+        }
+      }),
+      recognizedEntities: importedData.recognized_entities.map((e: { type: string; start_index: number; tokens: string[] }) => {
+        return {
+          type: e.type,
+          startIndex: e.start_index,
+          tokens: e.tokens,
+        }
+      }),
+    };
+
+    setAnnotationResult(annotationResult);
+
+    toast({
+      title: 'File unploaded.',
+      description: "File uploaded successfully!",
+      status: 'success',
+      duration: 9000,
+      isClosable: true,
+    })
+
+  }
   return (
     <Box padding="2rem">
       <Heading mb={4}>PET Annotation Visualization</Heading>
+      <Divider orientation='vertical' />
       <Text fontSize='xl'>
         Select a file to display.
       </Text>
-      <Button size='lg' colorScheme='green' mt='24px'>
-        Select a file
-      </Button>
-      <SimpleGrid columns={2} spacing={2} mt='24px'>
-        <Card>
-          <CardHeader>
-            <Heading size='md'>Reference</Heading>
-          </CardHeader>
-          <CardBody>
-            <AnnotationText tokens={annotationResult.tokens} entities={annotationResult.presentEntities} />
-          </CardBody>
-        </Card>
-        <Card>
-          <CardHeader>
-            <Heading size='md'>Model</Heading>
-          </CardHeader>
-          <CardBody>
-            <AnnotationText tokens={annotationResult.tokens} entities={annotationResult.recognizedEntities} />
-          </CardBody>
-        </Card>
-      </SimpleGrid>
+      <Divider orientation='vertical' />
+      <FileUpload onInput={handleInput} />
+      {annotationResult &&
+        <>
+          <Card p={4} mt={4}>
+            <StatGroup>
+              <Stat>
+                <StatLabel>F1-Score</StatLabel>
+                <StatNumber>{annotationResult.f1Score}</StatNumber>
+              </Stat>
+              <Divider orientation='vertical' />
+              <Stat>
+                <StatLabel>Recall</StatLabel>
+                <StatNumber>{annotationResult.recall}</StatNumber>
+              </Stat>
+              <Divider orientation='vertical' />
+              <Stat>
+                <StatLabel>Precision</StatLabel>
+                <StatNumber>{annotationResult.precision}</StatNumber>
+              </Stat>
+              <Divider orientation='vertical' />
+              <Stat>
+                <StatLabel>Length</StatLabel>
+                <StatNumber>{annotationResult.tokens.length}</StatNumber>
+              </Stat>
+            </StatGroup>
+          </Card>
+          <SimpleGrid columns={2} spacing={2} mt='24px'>
+            <Card>
+              <CardHeader>
+                <Heading size='md'>Reference</Heading>
+              </CardHeader>
+              <CardBody>
+                <AnnotationText tokens={annotationResult.tokens} entities={annotationResult.presentEntities} />
+              </CardBody>
+            </Card>
+            <Card>
+              <CardHeader>
+                <Heading size='md'>Model</Heading>
+              </CardHeader>
+              <CardBody>
+                <AnnotationText tokens={annotationResult.tokens} entities={annotationResult.recognizedEntities} />
+              </CardBody>
+            </Card>
+          </SimpleGrid>
+        </>}
     </Box >
   )
 }

@@ -14,6 +14,12 @@ import {
   StatNumber,
   Divider,
   StatGroup,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+  Tabs,
+  Tag,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 
@@ -125,44 +131,132 @@ export default function App() {
       <FileUpload onInput={handleInput} />
       {annotationResult &&
         <>
-          <Card p={4} mt={4}>
-            <StatGroup>
-              <Stat>
-                <StatLabel>F1-Score</StatLabel>
-                <StatNumber>{annotationResult.f1Score}</StatNumber>
-              </Stat>
-              <Divider orientation='vertical' />
-              <Stat>
-                <StatLabel>Recall</StatLabel>
-                <StatNumber>{annotationResult.recall}</StatNumber>
-              </Stat>
-              <Divider orientation='vertical' />
-              <Stat>
-                <StatLabel>Precision</StatLabel>
-                <StatNumber>{annotationResult.precision}</StatNumber>
-              </Stat>
-              <Divider orientation='vertical' />
-              <Stat>
-                <StatLabel>Length</StatLabel>
-                <StatNumber>{annotationResult.tokens.length}</StatNumber>
-              </Stat>
-            </StatGroup>
+          <Card mt={4}>
+            <CardHeader>
+              <Heading size='md'>Metrics</Heading>
+            </CardHeader>
+            <CardBody>
+              <Tabs variant='enclosed' colorScheme='green'>
+                <TabList marginBottom={2}>
+                  <Tab>Overall</Tab>
+                  <Tab>Actor</Tab>
+                  <Tab>Activity</Tab>
+                  <Tab>Activity Data</Tab>
+                </TabList>
+                <TabPanels>
+                  <TabPanel>
+                    <StatGroup>
+                      <Stat>
+                        <StatLabel>F1-Score</StatLabel>
+                        <StatNumber>{annotationResult.f1Score}</StatNumber>
+                      </Stat>
+                      <Divider orientation='vertical' />
+                      <Stat>
+                        <StatLabel>Recall</StatLabel>
+                        <StatNumber>{annotationResult.recall}</StatNumber>
+                      </Stat>
+                      <Divider orientation='vertical' />
+                      <Stat>
+                        <StatLabel>Precision</StatLabel>
+                        <StatNumber>{annotationResult.precision}</StatNumber>
+                      </Stat>
+                      <Divider orientation='vertical' />
+                      <Stat>
+                        <StatLabel>Length</StatLabel>
+                        <StatNumber>{annotationResult.tokens.length}</StatNumber>
+                      </Stat>
+                    </StatGroup>
+                  </TabPanel>
+                  <TabPanel>
+                    <StatGroup>
+                      <Stat>
+                        <StatLabel>F1-Score</StatLabel>
+                        <StatNumber>{annotationResult.f1Score}</StatNumber>
+                      </Stat>
+                      <Divider orientation='vertical' />
+                      <Stat>
+                        <StatLabel>Recall</StatLabel>
+                        <StatNumber>{annotationResult.recall}</StatNumber>
+                      </Stat>
+                      <Divider orientation='vertical' />
+                      <Stat>
+                        <StatLabel>Precision</StatLabel>
+                        <StatNumber>{annotationResult.precision}</StatNumber>
+                      </Stat>
+                      <Divider orientation='vertical' />
+                      <Stat>
+                        <StatLabel>Length</StatLabel>
+                        <StatNumber>{annotationResult.tokens.length}</StatNumber>
+                      </Stat>
+                    </StatGroup>
+                  </TabPanel>
+                  <TabPanel>
+                    <StatGroup>
+                      <Stat>
+                        <StatLabel>F1-Score</StatLabel>
+                        <StatNumber>{annotationResult.f1Score}</StatNumber>
+                      </Stat>
+                      <Divider orientation='vertical' />
+                      <Stat>
+                        <StatLabel>Recall</StatLabel>
+                        <StatNumber>{annotationResult.recall}</StatNumber>
+                      </Stat>
+                      <Divider orientation='vertical' />
+                      <Stat>
+                        <StatLabel>Precision</StatLabel>
+                        <StatNumber>{annotationResult.precision}</StatNumber>
+                      </Stat>
+                      <Divider orientation='vertical' />
+                      <Stat>
+                        <StatLabel>Length</StatLabel>
+                        <StatNumber>{annotationResult.tokens.length}</StatNumber>
+                      </Stat>
+                    </StatGroup>
+                  </TabPanel>
+                  <TabPanel>
+                    <StatGroup>
+                      <Stat>
+                        <StatLabel>F1-Score</StatLabel>
+                        <StatNumber>{annotationResult.f1Score}</StatNumber>
+                      </Stat>
+                      <Divider orientation='vertical' />
+                      <Stat>
+                        <StatLabel>Recall</StatLabel>
+                        <StatNumber>{annotationResult.recall}</StatNumber>
+                      </Stat>
+                      <Divider orientation='vertical' />
+                      <Stat>
+                        <StatLabel>Precision</StatLabel>
+                        <StatNumber>{annotationResult.precision}</StatNumber>
+                      </Stat>
+                      <Divider orientation='vertical' />
+                      <Stat>
+                        <StatLabel>Length</StatLabel>
+                        <StatNumber>{annotationResult.tokens.length}</StatNumber>
+                      </Stat>
+                    </StatGroup></TabPanel>
+                </TabPanels>
+              </Tabs>
+            </CardBody>
           </Card>
           <SimpleGrid columns={2} spacing={2} mt='24px'>
+            <Card>
+              <CardHeader>
+                <Heading size='md'>
+                  <Text as='span' marginRight={2}>Model</Text>
+                  <Tag colorScheme='green'>GPT-3.5-Turbo</Tag>
+                </Heading>
+              </CardHeader>
+              <CardBody>
+                <AnnotationText tokens={annotationResult.tokens} entities={annotationResult.recognizedEntities} />
+              </CardBody>
+            </Card>
             <Card>
               <CardHeader>
                 <Heading size='md'>Reference</Heading>
               </CardHeader>
               <CardBody>
                 <AnnotationText tokens={annotationResult.tokens} entities={annotationResult.presentEntities} />
-              </CardBody>
-            </Card>
-            <Card>
-              <CardHeader>
-                <Heading size='md'>Model</Heading>
-              </CardHeader>
-              <CardBody>
-                <AnnotationText tokens={annotationResult.tokens} entities={annotationResult.recognizedEntities} />
               </CardBody>
             </Card>
           </SimpleGrid>

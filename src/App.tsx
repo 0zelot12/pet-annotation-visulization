@@ -302,6 +302,35 @@ export default function App() {
               </Tabs>
             </CardBody>
           </Card>
+          <SimpleGrid columns={2} spacing={2} mt="24px">
+            <Card>
+              <CardHeader>
+                <Heading size="md">
+                  <Text as="span" marginRight={2}>
+                    Model
+                  </Text>
+                  <Tag colorScheme="green">GPT-3.5-Turbo</Tag>
+                </Heading>
+              </CardHeader>
+              <CardBody>
+                <AnnotationText
+                  tokens={annotationResult.tokens}
+                  entities={annotationResult.recognized_entities}
+                />
+              </CardBody>
+            </Card>
+            <Card>
+              <CardHeader>
+                <Heading size="md">Reference</Heading>
+              </CardHeader>
+              <CardBody>
+                <AnnotationText
+                  tokens={annotationResult.tokens}
+                  entities={annotationResult.present_entities}
+                />
+              </CardBody>
+            </Card>
+          </SimpleGrid>
           <Card mt={4}>
             <CardHeader>
               <Heading size="md">Relations</Heading>
@@ -334,35 +363,6 @@ export default function App() {
               })}
             </CardBody>
           </Card>
-          <SimpleGrid columns={2} spacing={2} mt="24px">
-            <Card>
-              <CardHeader>
-                <Heading size="md">
-                  <Text as="span" marginRight={2}>
-                    Model
-                  </Text>
-                  <Tag colorScheme="green">GPT-3.5-Turbo</Tag>
-                </Heading>
-              </CardHeader>
-              <CardBody>
-                <AnnotationText
-                  tokens={annotationResult.tokens}
-                  entities={annotationResult.recognized_entities}
-                />
-              </CardBody>
-            </Card>
-            <Card>
-              <CardHeader>
-                <Heading size="md">Reference</Heading>
-              </CardHeader>
-              <CardBody>
-                <AnnotationText
-                  tokens={annotationResult.tokens}
-                  entities={annotationResult.present_entities}
-                />
-              </CardBody>
-            </Card>
-          </SimpleGrid>
         </>
       )}
     </Box>

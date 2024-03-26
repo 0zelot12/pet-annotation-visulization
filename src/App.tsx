@@ -20,60 +20,9 @@ import {
 } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { useState } from "react";
-import FileUpload from "./components/FileUpload";
-import { Entity } from "./interfaces/entity";
 import { AnnotationResult } from "./interfaces/annotation-result";
-
-export function Annotation({ text, type }: { text: string; type: string }) {
-  if (type === "ACTIVITY") {
-    return (
-      <Text as="span" backgroundColor="teal.100">
-        {text + " "}
-      </Text>
-    );
-  } else if (type === "ACTIVITY_DATA") {
-    return (
-      <Text as="span" backgroundColor="orange.100">
-        {text + " "}
-      </Text>
-    );
-  } else if (type === "ACTOR") {
-    return (
-      <Text as="span" backgroundColor="red.100">
-        {text + " "}
-      </Text>
-    );
-  } else {
-    return text + " ";
-  }
-}
-
-export function AnnotationText({
-  tokens,
-  entities,
-}: {
-  tokens: string[];
-  entities: Entity[];
-}) {
-  const result: { type: string; tokens: string[] }[] = [];
-  for (let i = 0; i < tokens.length; ) {
-    const matchedEntity = entities.find((e) => e.start_index === i);
-    if (matchedEntity) {
-      result.push({ type: matchedEntity.type, tokens: matchedEntity.tokens });
-      i += matchedEntity.tokens.length;
-    } else {
-      result.push({ type: "O", tokens: [tokens[i]] });
-      i++;
-    }
-  }
-  return (
-    <Text lineHeight={2}>
-      {result.map((r) => (
-        <Annotation type={r.type} text={r.tokens.join(" ")} />
-      ))}
-    </Text>
-  );
-}
+import { AnnotationText } from "./components/annotation-text";
+import FileUpload from "./components/file-upload";
 
 export default function App() {
   const [annotationResult, setAnnotationResult] =

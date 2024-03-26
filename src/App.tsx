@@ -232,6 +232,14 @@ export default function App() {
               </Tabs>
             </CardBody>
           </Card>
+          <Card mt={4}>
+            <CardHeader>
+              <Heading size='md'>Relations</Heading>
+            </CardHeader>
+            <CardBody>
+              <Text>Relations go here!</Text>
+            </CardBody>
+          </Card>
           <SimpleGrid columns={2} spacing={2} mt='24px'>
             <Card>
               <CardHeader>

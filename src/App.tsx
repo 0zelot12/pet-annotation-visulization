@@ -17,65 +17,66 @@ import {
   TabPanel,
   Tabs,
   Tag,
-} from '@chakra-ui/react'
-import { useState } from 'react'
+} from "@chakra-ui/react";
+import { useState } from "react";
+import FileUpload from "./components/FileUpload";
+import { Entity } from "./interfaces/entity";
+import { AnnotationResult } from "./interfaces/annotation-result";
 
-import FileUpload from './components/FileUpload'
-
-export interface Metrics {
-  f1_score: number
-  precision: number
-  recall: number
-}
-
-export interface AnnotationResult {
-  name: string
-  overall: Metrics
-  actor: Metrics
-  activity: Metrics
-  activity_data: Metrics
-  tokens: string[]
-  present_entities: Entity[]
-  recognized_entities: Entity[]
-}
-
-interface Entity {
-  type: string
-  start_index: number
-  tokens: string[]
-}
-
-export function Annotation({ text, type }: { text: string, type: string }) {
+export function Annotation({ text, type }: { text: string; type: string }) {
   if (type === "ACTIVITY") {
-    return <Text as='span' backgroundColor='teal.100'>{text + ' '}</Text>
+    return (
+      <Text as="span" backgroundColor="teal.100">
+        {text + " "}
+      </Text>
+    );
   } else if (type === "ACTIVITY_DATA") {
-    return <Text as='span' backgroundColor='orange.100'>{text + ' '}</Text>
+    return (
+      <Text as="span" backgroundColor="orange.100">
+        {text + " "}
+      </Text>
+    );
   } else if (type === "ACTOR") {
-    return <Text as='span' backgroundColor='red.100'>{text + ' '}</Text>
+    return (
+      <Text as="span" backgroundColor="red.100">
+        {text + " "}
+      </Text>
+    );
   } else {
-    return text + ' '
+    return text + " ";
   }
 }
 
-export function AnnotationText({ tokens, entities }: { tokens: string[], entities: Entity[] }) {
-  const result: { type: string, tokens: string[] }[] = [];
-  for (let i = 0; i < tokens.length;) {
-    const matchedEntity = entities.find(e => e.start_index === i);
+export function AnnotationText({
+  tokens,
+  entities,
+}: {
+  tokens: string[];
+  entities: Entity[];
+}) {
+  const result: { type: string; tokens: string[] }[] = [];
+  for (let i = 0; i < tokens.length; ) {
+    const matchedEntity = entities.find((e) => e.start_index === i);
     if (matchedEntity) {
-      result.push({ type: matchedEntity.type, tokens: matchedEntity.tokens })
-      i += matchedEntity.tokens.length
+      result.push({ type: matchedEntity.type, tokens: matchedEntity.tokens });
+      i += matchedEntity.tokens.length;
     } else {
-      result.push({ type: "O", tokens: [tokens[i]] })
+      result.push({ type: "O", tokens: [tokens[i]] });
       i++;
     }
   }
   return (
-    <Text lineHeight={2}>{result.map(r => <Annotation type={r.type} text={r.tokens.join(' ')} />)}</Text>
-  )
+    <Text lineHeight={2}>
+      {result.map((r) => (
+        <Annotation type={r.type} text={r.tokens.join(" ")} />
+      ))}
+    </Text>
+  );
 }
 
 export default function App() {
-  const [annotationResult, setAnnotationResult] = useState<AnnotationResult | null>(null);
+  const [annotationResult, setAnnotationResult] =
+    useState<AnnotationResult | null>(null);
 
   const toast = useToast();
 
@@ -93,53 +94,78 @@ export default function App() {
 
     const annotationResult: AnnotationResult = {
       name: importedData.document_name,
-      overall: { precision: importedData.metrics.overall.precision, recall: importedData.metrics.overall.recall, f1_score: importedData.metrics.overall.f1_score },
-      actor: { precision: importedData.metrics.actor.precision, recall: importedData.metrics.actor.recall, f1_score: importedData.metrics.actor.f1_score },
-      activity: { precision: importedData.metrics.activity.precision, recall: importedData.metrics.activity.recall, f1_score: importedData.metrics.activity.f1_score },
-      activity_data: { precision: importedData.metrics.activity_data.precision, recall: importedData.metrics.activity_data.recall, f1_score: importedData.metrics.activity_data.f1_score },
+      overall: {
+        precision: importedData.metrics.overall.precision,
+        recall: importedData.metrics.overall.recall,
+        f1_score: importedData.metrics.overall.f1_score,
+        true_positives: importedData.metrics.overall.true_positives,
+        reference_count: importedData.metrics.overall.reference_count,
+      },
+      actor: {
+        precision: importedData.metrics.actor.precision,
+        recall: importedData.metrics.actor.recall,
+        f1_score: importedData.metrics.actor.f1_score,
+        true_positives: importedData.metrics.actor.true_positives,
+        reference_count: importedData.metrics.actor.reference_count,
+      },
+      activity: {
+        precision: importedData.metrics.activity.precision,
+        recall: importedData.metrics.activity.recall,
+        f1_score: importedData.metrics.activity.f1_score,
+        true_positives: importedData.metrics.activity.true_positives,
+        reference_count: importedData.metrics.activity.reference_count,
+      },
+      activity_data: {
+        precision: importedData.metrics.activity_data.precision,
+        recall: importedData.metrics.activity_data.recall,
+        f1_score: importedData.metrics.activity_data.f1_score,
+        true_positives: importedData.metrics.activity_data.true_positives,
+        reference_count: importedData.metrics.activity_data.reference_count,
+      },
       tokens: importedData.tokens,
-      present_entities: importedData.present_entities.map((e: { type: string; start_index: number; tokens: string[] }) => {
-        return {
-          type: e.type,
-          start_index: e.start_index,
-          tokens: e.tokens,
+      present_entities: importedData.present_entities.map(
+        (e: { type: string; start_index: number; tokens: string[] }) => {
+          return {
+            type: e.type,
+            start_index: e.start_index,
+            tokens: e.tokens,
+          };
         }
-      }),
-      recognized_entities: importedData.recognized_entities.map((e: { type: string; start_index: number; tokens: string[] }) => {
-        return {
-          type: e.type,
-          start_index: e.start_index,
-          tokens: e.tokens,
+      ),
+      recognized_entities: importedData.recognized_entities.map(
+        (e: { type: string; start_index: number; tokens: string[] }) => {
+          return {
+            type: e.type,
+            start_index: e.start_index,
+            tokens: e.tokens,
+          };
         }
-      }),
+      ),
     };
 
     setAnnotationResult(annotationResult);
 
     toast({
-      title: 'File unploaded.',
+      title: "File unploaded.",
       description: "File uploaded successfully!",
-      status: 'success',
+      status: "success",
       duration: 9000,
       isClosable: true,
-    })
-
-  }
+    });
+  };
   return (
     <Box padding="2rem">
       <Heading mb={4}>PET Annotation Visualization</Heading>
-      <Text fontSize='xl'>
-        Select a file to display.
-      </Text>
+      <Text fontSize="xl">Select a file to display.</Text>
       <FileUpload onInput={handleInput} />
-      {annotationResult &&
+      {annotationResult && (
         <>
           <Card mt={4}>
             <CardHeader>
-              <Heading size='md'>Entity metrics</Heading>
+              <Heading size="md">Entity metrics</Heading>
             </CardHeader>
             <CardBody>
-              <Tabs variant='enclosed' colorScheme='green'>
+              <Tabs variant="enclosed" colorScheme="green">
                 <TabList marginBottom={2}>
                   <Tab>Overall</Tab>
                   <Tab>Actor</Tab>
@@ -152,19 +178,28 @@ export default function App() {
                     <StatGroup>
                       <Stat>
                         <StatLabel>F1-Score</StatLabel>
-                        <StatNumber>{annotationResult.overall.f1_score}</StatNumber>
+                        <StatNumber>
+                          {annotationResult.overall.f1_score}
+                        </StatNumber>
                       </Stat>
                       <Stat>
                         <StatLabel>Recall</StatLabel>
-                        <StatNumber>{annotationResult.overall.recall}</StatNumber>
+                        <StatNumber>
+                          {annotationResult.overall.recall}
+                        </StatNumber>
                       </Stat>
                       <Stat>
                         <StatLabel>Precision</StatLabel>
-                        <StatNumber>{annotationResult.overall.precision}</StatNumber>
+                        <StatNumber>
+                          {annotationResult.overall.precision}
+                        </StatNumber>
                       </Stat>
                       <Stat>
-                        <StatLabel>Length</StatLabel>
-                        <StatNumber>{annotationResult.tokens.length}</StatNumber>
+                        <StatLabel>Absolute</StatLabel>
+                        <StatNumber>
+                          {annotationResult.overall.true_positives}/
+                          {annotationResult.overall.reference_count}
+                        </StatNumber>
                       </Stat>
                     </StatGroup>
                   </TabPanel>
@@ -172,7 +207,9 @@ export default function App() {
                     <StatGroup>
                       <Stat>
                         <StatLabel>F1-Score</StatLabel>
-                        <StatNumber>{annotationResult.actor.f1_score}</StatNumber>
+                        <StatNumber>
+                          {annotationResult.actor.f1_score}
+                        </StatNumber>
                       </Stat>
                       <Stat>
                         <StatLabel>Recall</StatLabel>
@@ -180,31 +217,16 @@ export default function App() {
                       </Stat>
                       <Stat>
                         <StatLabel>Precision</StatLabel>
-                        <StatNumber>{annotationResult.actor.precision}</StatNumber>
+                        <StatNumber>
+                          {annotationResult.actor.precision}
+                        </StatNumber>
                       </Stat>
                       <Stat>
-                        <StatLabel>Length</StatLabel>
-                        <StatNumber>{annotationResult.tokens.length}</StatNumber>
-                      </Stat>
-                    </StatGroup>
-                  </TabPanel>
-                  <TabPanel>
-                    <StatGroup>
-                      <Stat>
-                        <StatLabel>F1-Score</StatLabel>
-                        <StatNumber>{annotationResult.activity.f1_score}</StatNumber>
-                      </Stat>
-                      <Stat>
-                        <StatLabel>Recall</StatLabel>
-                        <StatNumber>{annotationResult.activity.recall}</StatNumber>
-                      </Stat>
-                      <Stat>
-                        <StatLabel>Precision</StatLabel>
-                        <StatNumber>{annotationResult.activity.precision}</StatNumber>
-                      </Stat>
-                      <Stat>
-                        <StatLabel>Length</StatLabel>
-                        <StatNumber>{annotationResult.tokens.length}</StatNumber>
+                        <StatLabel>Absolute</StatLabel>
+                        <StatNumber>
+                        {annotationResult.actor.true_positives}/
+                          {annotationResult.actor.reference_count}
+                        </StatNumber>
                       </Stat>
                     </StatGroup>
                   </TabPanel>
@@ -212,19 +234,57 @@ export default function App() {
                     <StatGroup>
                       <Stat>
                         <StatLabel>F1-Score</StatLabel>
-                        <StatNumber>{annotationResult.activity_data.f1_score}</StatNumber>
+                        <StatNumber>
+                          {annotationResult.activity.f1_score}
+                        </StatNumber>
                       </Stat>
                       <Stat>
                         <StatLabel>Recall</StatLabel>
-                        <StatNumber>{annotationResult.activity_data.recall}</StatNumber>
+                        <StatNumber>
+                          {annotationResult.activity.recall}
+                        </StatNumber>
                       </Stat>
                       <Stat>
                         <StatLabel>Precision</StatLabel>
-                        <StatNumber>{annotationResult.activity_data.precision}</StatNumber>
+                        <StatNumber>
+                          {annotationResult.activity.precision}
+                        </StatNumber>
                       </Stat>
                       <Stat>
-                        <StatLabel>Length</StatLabel>
-                        <StatNumber>{annotationResult.tokens.length}</StatNumber>
+                        <StatLabel>Absolute</StatLabel>
+                        <StatNumber>
+                        {annotationResult.activity.true_positives}/
+                          {annotationResult.activity.reference_count}
+                        </StatNumber>
+                      </Stat>
+                    </StatGroup>
+                  </TabPanel>
+                  <TabPanel>
+                    <StatGroup>
+                      <Stat>
+                        <StatLabel>F1-Score</StatLabel>
+                        <StatNumber>
+                          {annotationResult.activity_data.f1_score}
+                        </StatNumber>
+                      </Stat>
+                      <Stat>
+                        <StatLabel>Recall</StatLabel>
+                        <StatNumber>
+                          {annotationResult.activity_data.recall}
+                        </StatNumber>
+                      </Stat>
+                      <Stat>
+                        <StatLabel>Precision</StatLabel>
+                        <StatNumber>
+                          {annotationResult.activity_data.precision}
+                        </StatNumber>
+                      </Stat>
+                      <Stat>
+                      <StatLabel>Absolute</StatLabel>
+                        <StatNumber>
+                        {annotationResult.activity_data.true_positives}/
+                          {annotationResult.activity_data.reference_count}
+                        </StatNumber>
                       </Stat>
                     </StatGroup>
                   </TabPanel>
@@ -234,34 +294,43 @@ export default function App() {
           </Card>
           <Card mt={4}>
             <CardHeader>
-              <Heading size='md'>Relations</Heading>
+              <Heading size="md">Relations</Heading>
             </CardHeader>
             <CardBody>
               <Text>Relations go here!</Text>
             </CardBody>
           </Card>
-          <SimpleGrid columns={2} spacing={2} mt='24px'>
+          <SimpleGrid columns={2} spacing={2} mt="24px">
             <Card>
               <CardHeader>
-                <Heading size='md'>
-                  <Text as='span' marginRight={2}>Model</Text>
-                  <Tag colorScheme='green'>GPT-3.5-Turbo</Tag>
+                <Heading size="md">
+                  <Text as="span" marginRight={2}>
+                    Model
+                  </Text>
+                  <Tag colorScheme="green">GPT-3.5-Turbo</Tag>
                 </Heading>
               </CardHeader>
               <CardBody>
-                <AnnotationText tokens={annotationResult.tokens} entities={annotationResult.recognized_entities} />
+                <AnnotationText
+                  tokens={annotationResult.tokens}
+                  entities={annotationResult.recognized_entities}
+                />
               </CardBody>
             </Card>
             <Card>
               <CardHeader>
-                <Heading size='md'>Reference</Heading>
+                <Heading size="md">Reference</Heading>
               </CardHeader>
               <CardBody>
-                <AnnotationText tokens={annotationResult.tokens} entities={annotationResult.present_entities} />
+                <AnnotationText
+                  tokens={annotationResult.tokens}
+                  entities={annotationResult.present_entities}
+                />
               </CardBody>
             </Card>
           </SimpleGrid>
-        </>}
-    </Box >
-  )
+        </>
+      )}
+    </Box>
+  );
 }

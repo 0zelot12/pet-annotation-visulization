@@ -81,14 +81,14 @@ export default function App() {
 
   const toast = useToast();
 
-  const handleInput = async ($event: any) => {
+  const handleInput = async ($event: React.ChangeEvent<HTMLInputElement>) => {
     const file = $event.target.files && $event.target.files[0];
     if (!file) {
       return;
     }
 
     // Reset file input
-    $event.target.value = null;
+    $event.target.value = "";
 
     const dataString = await file.text();
     const importedData = JSON.parse(dataString);

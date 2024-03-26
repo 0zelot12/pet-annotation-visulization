@@ -1,9 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button } from '@chakra-ui/react';
-import { useRef } from 'react';
-import { MdOutlineFileUpload } from "react-icons/md";
+import { Button } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
+import { useRef } from "react";
 
-export default function FileUpload({ onInput }: { onInput: ($event: any) => void }) {
+export default function FileUpload({
+  onInput,
+}: {
+  onInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleClick = () => {
@@ -14,13 +17,14 @@ export default function FileUpload({ onInput }: { onInput: ($event: any) => void
 
   return (
     <>
-      <input
-        hidden
-        ref={fileInputRef}
-        type="file"
-        onChange={onInput}
-      />
-      <Button size='lg' colorScheme='green' mt='24px' leftIcon={<MdOutlineFileUpload />} onClick={handleClick}>
+      <input hidden ref={fileInputRef} type="file" onChange={onInput} />
+      <Button
+        size="lg"
+        colorScheme="green"
+        mt="24px"
+        leftIcon={<AddIcon />}
+        onClick={handleClick}
+      >
         Select a file
       </Button>
     </>

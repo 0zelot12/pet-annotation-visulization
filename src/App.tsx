@@ -18,6 +18,7 @@ import {
   Tabs,
   Tag,
 } from "@chakra-ui/react";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import FileUpload from "./components/FileUpload";
 import { Entity } from "./interfaces/entity";
@@ -141,6 +142,15 @@ export default function App() {
           };
         }
       ),
+      present_relations: importedData.present_relations.map(
+        (r: {
+          type: string;
+          source: { type: string; start_index: number; tokens: string[] };
+          target: { type: string; start_index: number; tokens: string[] };
+        }) => {
+          return { type: r.type, source: r.source, target: r.target };
+        }
+      ),
     };
 
     setAnnotationResult(annotationResult);
@@ -224,7 +234,7 @@ export default function App() {
                       <Stat>
                         <StatLabel>Absolute</StatLabel>
                         <StatNumber>
-                        {annotationResult.actor.true_positives}/
+                          {annotationResult.actor.true_positives}/
                           {annotationResult.actor.reference_count}
                         </StatNumber>
                       </Stat>
@@ -253,7 +263,7 @@ export default function App() {
                       <Stat>
                         <StatLabel>Absolute</StatLabel>
                         <StatNumber>
-                        {annotationResult.activity.true_positives}/
+                          {annotationResult.activity.true_positives}/
                           {annotationResult.activity.reference_count}
                         </StatNumber>
                       </Stat>
@@ -280,9 +290,9 @@ export default function App() {
                         </StatNumber>
                       </Stat>
                       <Stat>
-                      <StatLabel>Absolute</StatLabel>
+                        <StatLabel>Absolute</StatLabel>
                         <StatNumber>
-                        {annotationResult.activity_data.true_positives}/
+                          {annotationResult.activity_data.true_positives}/
                           {annotationResult.activity_data.reference_count}
                         </StatNumber>
                       </Stat>
@@ -297,7 +307,31 @@ export default function App() {
               <Heading size="md">Relations</Heading>
             </CardHeader>
             <CardBody>
-              <Text>Relations go here!</Text>
+              {annotationResult.present_relations.map((r) => {
+                return (
+                  <Box mb={4}>
+                    {r.source ? (
+                      <Tag size="lg" mr={1}>
+                        {r.source.tokens.join(" ")}
+                      </Tag>
+                    ) : (
+                      <Tag size="lg" mr={1}>
+                        {"Source not set"}
+                      </Tag>
+                    )}
+                    <ArrowForwardIcon mr={1} />
+                    <Tag size="lg" mr={1}>
+                      {r.type}
+                    </Tag>
+                    <ArrowForwardIcon mr={1} />
+                    {r.target ? (
+                      <Tag size="lg">{r.target.tokens.join(" ")}</Tag>
+                    ) : (
+                      <Tag size="lg">{"Target not set"}</Tag>
+                    )}
+                  </Box>
+                );
+              })}
             </CardBody>
           </Card>
           <SimpleGrid columns={2} spacing={2} mt="24px">

@@ -86,14 +86,20 @@ export default function Annotation() {
               </FormControl>
             </Box>
             <Box>
-              <Text>Documents to be annotated</Text>
-              <Box my={2}>
-                <Button colorScheme="teal" size="sm" variant="ghost" mr={2}>
-                  Select all
-                </Button>
-                <Button colorScheme="teal" size="sm" variant="ghost">
-                  Reset selection
-                </Button>
+              <Box mb={2}>
+                <HStack spacing={2}>
+                  <Text fontWeight="semibold" as="span">
+                    Documents to be annotated
+                  </Text>
+                  <Box>
+                    <Button colorScheme="teal" size="sm" variant="ghost" mr={2}>
+                      Select all
+                    </Button>
+                    <Button colorScheme="teal" size="sm" variant="ghost">
+                      Reset selection
+                    </Button>
+                  </Box>
+                </HStack>
               </Box>
               <HStack>
                 {availableDocs.map((doc) => (
@@ -105,14 +111,20 @@ export default function Annotation() {
               </HStack>
             </Box>
             <Box>
-              <Text>Documents to use as context</Text>
-              <Box my={2}>
-                <Button colorScheme="teal" size="sm" variant="ghost" mr={2}>
-                  Select all
-                </Button>
-                <Button colorScheme="teal" size="sm" variant="ghost">
-                  Reset selection
-                </Button>
+              <Box mb={2}>
+                <HStack spacing={2}>
+                  <Text fontWeight="semibold" as="span">
+                    Documents to use as context
+                  </Text>
+                  <Box>
+                    <Button colorScheme="teal" size="sm" variant="ghost" mr={2}>
+                      Select all
+                    </Button>
+                    <Button colorScheme="teal" size="sm" variant="ghost">
+                      Reset selection
+                    </Button>
+                  </Box>
+                </HStack>
               </Box>
               <HStack>
                 {availableDocs.map((doc) => (

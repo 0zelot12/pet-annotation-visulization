@@ -283,7 +283,7 @@ export default function Annotation() {
         </CardBody>
         <CardFooter>
           <Button size="lg" colorScheme="teal" mr={2}>
-            Annotate
+            Start processing
           </Button>
           <Button size="lg" colorScheme="red">
             Reset

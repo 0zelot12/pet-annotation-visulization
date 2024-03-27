@@ -59,7 +59,7 @@ export default function Visualization() {
 
   return (
     <Box padding="2rem">
-      <Heading mb={4}>PET Annotation Visualization</Heading>
+      <Heading mb={4}>Visualization</Heading>
       <Text fontSize="xl">Select a file to display.</Text>
       <Link to="/">
         <Button

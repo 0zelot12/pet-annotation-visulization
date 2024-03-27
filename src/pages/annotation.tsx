@@ -22,10 +22,15 @@ import {
   NumberInputStepper,
   NumberDecrementStepper,
   CardFooter,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import DocumentTagDisplay from "../components/document-tag-display";
+import DocumentTable from "../components/document-table";
 
 export interface Document {
   name: string;
@@ -177,50 +182,84 @@ export default function Annotation() {
                 </Menu>
               </FormControl>
             </Box>
-            <Box>
-              <Box mb={2}>
-                <HStack spacing={2}>
-                  <Text fontWeight="semibold" as="span">
+            <Accordion w="100%" allowMultiple>
+              <AccordionItem>
+                <AccordionButton>
+                  <Box
+                    as="span"
+                    flex="1"
+                    textAlign="left"
+                    fontWeight="semibold"
+                  >
                     Documents to be annotated
-                  </Text>
-                  <Box>
-                    <Button colorScheme="teal" size="sm" variant="ghost" mr={2}>
-                      Select all
-                    </Button>
-                    <Button colorScheme="teal" size="sm" variant="ghost">
-                      Reset selection
-                    </Button>
                   </Box>
-                </HStack>
-              </Box>
-              <VStack align="start">
-                {availableDocs.map((group) => (
-                  <DocumentTagDisplay documents={group.documents} />
-                ))}
-              </VStack>
-            </Box>
-            <Box>
-              <Box mb={2}>
-                <HStack spacing={2}>
-                  <Text fontWeight="semibold" as="span">
+                  <AccordionIcon />
+                </AccordionButton>
+                <AccordionPanel>
+                  <Box>
+                    <Box mb={2}>
+                      <HStack spacing={2}>
+                        <Box>
+                          <Button
+                            colorScheme="teal"
+                            size="sm"
+                            variant="ghost"
+                            mr={2}
+                          >
+                            Select all
+                          </Button>
+                          <Button colorScheme="teal" size="sm" variant="ghost">
+                            Reset selection
+                          </Button>
+                        </Box>
+                      </HStack>
+                    </Box>
+                    <DocumentTable
+                      documents={availableDocs.flatMap((d) => d.documents)}
+                    />
+                  </Box>
+                </AccordionPanel>
+              </AccordionItem>
+            </Accordion>
+            <Accordion w="100%" allowMultiple>
+              <AccordionItem>
+                <AccordionButton>
+                  <Box
+                    as="span"
+                    flex="1"
+                    textAlign="left"
+                    fontWeight="semibold"
+                  >
                     Documents to use as context
-                  </Text>
-                  <Box>
-                    <Button colorScheme="teal" size="sm" variant="ghost" mr={2}>
-                      Select all
-                    </Button>
-                    <Button colorScheme="teal" size="sm" variant="ghost">
-                      Reset selection
-                    </Button>
                   </Box>
-                </HStack>
-              </Box>
-              <VStack align="start">
-                {availableDocs.map((group) => (
-                  <DocumentTagDisplay documents={group.documents} />
-                ))}
-              </VStack>
-            </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+                <AccordionPanel>
+                  <Box>
+                    <Box mb={2}>
+                      <HStack spacing={2}>
+                        <Box>
+                          <Button
+                            colorScheme="teal"
+                            size="sm"
+                            variant="ghost"
+                            mr={2}
+                          >
+                            Select all
+                          </Button>
+                          <Button colorScheme="teal" size="sm" variant="ghost">
+                            Reset selection
+                          </Button>
+                        </Box>
+                      </HStack>
+                    </Box>
+                    <DocumentTable
+                      documents={availableDocs.flatMap((d) => d.documents)}
+                    />
+                  </Box>
+                </AccordionPanel>
+              </AccordionItem>
+            </Accordion>
             <Box>
               <FormControl>
                 <FormLabel>Temperature</FormLabel>

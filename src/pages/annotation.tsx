@@ -1,4 +1,4 @@
-import { AddIcon, ArrowLeftIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { ArrowLeftIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Box,
   Heading,
@@ -9,9 +9,6 @@ import {
   Button,
   Text,
   HStack,
-  Tag,
-  TagLabel,
-  TagLeftIcon,
   Divider,
   VStack,
   Card,
@@ -32,6 +29,7 @@ import DocumentTagDisplay from "../components/document-tag-display";
 
 export interface Document {
   name: string;
+  length: number;
 }
 
 export interface DocumentGroup {
@@ -48,81 +46,92 @@ const availableModels = [
 const availableDocs: DocumentGroup[] = [
   {
     number: 1,
-    documents: [{ name: "doc-1.1" }, { name: "doc-1.2" }, { name: "doc-1.3" }],
+    documents: [
+      { name: "doc-1.1", length: 42 },
+      { name: "doc-1.2", length: 42 },
+      { name: "doc-1.3", length: 42 },
+    ],
   },
   {
     number: 2,
     documents: [
-      { name: "doc-2.1" },
-      { name: "doc-2.2" },
-      { name: "doc-2.3" },
-      { name: "doc-2.4" },
-      { name: "doc-2.5" },
+      { name: "doc-2.1", length: 42 },
+      { name: "doc-2.2", length: 42 },
+      { name: "doc-2.3", length: 42 },
+      { name: "doc-2.4", length: 42 },
+      { name: "doc-2.5", length: 42 },
     ],
   },
   {
     number: 3,
     documents: [
-      { name: "doc-3.1" },
-      { name: "doc-3.2" },
-      { name: "doc-3.3" },
-      { name: "doc-3.4" },
-      { name: "doc-3.5" },
-      { name: "doc-3.6" },
-      { name: "doc-3.7" },
+      { name: "doc-3.1", length: 42 },
+      { name: "doc-3.2", length: 42 },
+      { name: "doc-3.3", length: 42 },
+      { name: "doc-3.4", length: 42 },
+      { name: "doc-3.5", length: 42 },
+      { name: "doc-3.6", length: 42 },
+      { name: "doc-3.7", length: 42 },
     ],
   },
   {
     number: 4,
     documents: [
-      { name: "doc-4.1" },
-      { name: "doc-4.2" },
-      { name: "doc-4.3" },
-      { name: "doc-4.4" },
-      { name: "doc-4.5" },
+      { name: "doc-4.1", length: 42 },
+      { name: "doc-4.2", length: 42 },
+      { name: "doc-4.3", length: 42 },
+      { name: "doc-4.4", length: 42 },
+      { name: "doc-4.5", length: 42 },
     ],
   },
   {
     number: 6,
     documents: [
-      { name: "doc-6.1" },
-      { name: "doc-6.2" },
-      { name: "doc-6.3" },
-      { name: "doc-6.4" },
-      { name: "doc-6.5" },
-      { name: "doc-6.6" },
-      { name: "doc-6.7" },
-      { name: "doc-6.8" },
+      { name: "doc-6.1", length: 42 },
+      { name: "doc-6.2", length: 42 },
+      { name: "doc-6.3", length: 42 },
+      { name: "doc-6.4", length: 42 },
+      { name: "doc-6.5", length: 42 },
+      { name: "doc-6.6", length: 42 },
+      { name: "doc-6.7", length: 42 },
+      { name: "doc-6.8", length: 42 },
     ],
   },
   {
     number: 7,
     documents: [
-      { name: "doc-7.1" },
-      { name: "doc-7.2" },
-      { name: "doc-7.3" },
-      { name: "doc-7.4" },
-      { name: "doc-7.5" },
-      { name: "doc-7.6" },
-      { name: "doc-7.7" },
-      { name: "doc-7.8" },
+      { name: "doc-7.1", length: 42 },
+      { name: "doc-7.2", length: 42 },
+      { name: "doc-7.3", length: 42 },
+      { name: "doc-7.4", length: 42 },
+      { name: "doc-7.5", length: 42 },
+      { name: "doc-7.6", length: 42 },
+      { name: "doc-7.7", length: 42 },
+      { name: "doc-7.8", length: 42 },
     ],
   },
   {
     number: 8,
-    documents: [{ name: "doc-8.1" }, { name: "doc-8.2" }, { name: "doc-8.3" }],
+    documents: [
+      { name: "doc-8.1", length: 42 },
+      { name: "doc-8.2", length: 42 },
+      { name: "doc-8.3", length: 42 },
+    ],
   },
   {
     number: 9,
-    documents: [{ name: "doc-9.1" }, { name: "doc-9.2" }],
+    documents: [
+      { name: "doc-9.1", length: 42 },
+      { name: "doc-9.2", length: 42 },
+    ],
   },
   {
     number: 10,
     documents: [
-      { name: "doc-10.1" },
-      { name: "doc-10.2" },
-      { name: "doc-10.3" },
-      { name: "doc-10.4" },
+      { name: "doc-10.1", length: 42 },
+      { name: "doc-10.2", length: 42 },
+      { name: "doc-10.3", length: 42 },
+      { name: "doc-10.4", length: 42 },
     ],
   },
 ];

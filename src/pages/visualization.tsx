@@ -17,92 +17,38 @@ import {
   TabPanel,
   Tabs,
   Tag,
+  Spinner,
+  Flex,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { useState } from "react";
-import { AnnotationResult } from "../interfaces/annotation-result";
+import {
+  AnnotationResult,
+  plainToClass,
+} from "../interfaces/annotation-result";
 import { AnnotationText } from "../components/annotation-text";
 import FileUpload from "../components/file-upload";
 
 export default function Visualization() {
   const [annotationResult, setAnnotationResult] =
     useState<AnnotationResult | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const toast = useToast();
 
   const handleInput = async ($event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsLoading(true);
     const file = $event.target.files && $event.target.files[0];
     if (!file) {
       return;
     }
 
-    // Reset file input
     $event.target.value = "";
 
     const dataString = await file.text();
-    const importedData = JSON.parse(dataString);
+    setAnnotationResult(plainToClass(dataString));
 
-    const annotationResult: AnnotationResult = {
-      name: importedData.document_name,
-      overall: {
-        precision: importedData.metrics.overall.precision,
-        recall: importedData.metrics.overall.recall,
-        f1_score: importedData.metrics.overall.f1_score,
-        true_positives: importedData.metrics.overall.true_positives,
-        reference_count: importedData.metrics.overall.reference_count,
-      },
-      actor: {
-        precision: importedData.metrics.actor.precision,
-        recall: importedData.metrics.actor.recall,
-        f1_score: importedData.metrics.actor.f1_score,
-        true_positives: importedData.metrics.actor.true_positives,
-        reference_count: importedData.metrics.actor.reference_count,
-      },
-      activity: {
-        precision: importedData.metrics.activity.precision,
-        recall: importedData.metrics.activity.recall,
-        f1_score: importedData.metrics.activity.f1_score,
-        true_positives: importedData.metrics.activity.true_positives,
-        reference_count: importedData.metrics.activity.reference_count,
-      },
-      activity_data: {
-        precision: importedData.metrics.activity_data.precision,
-        recall: importedData.metrics.activity_data.recall,
-        f1_score: importedData.metrics.activity_data.f1_score,
-        true_positives: importedData.metrics.activity_data.true_positives,
-        reference_count: importedData.metrics.activity_data.reference_count,
-      },
-      tokens: importedData.tokens,
-      present_entities: importedData.present_entities.map(
-        (e: { type: string; start_index: number; tokens: string[] }) => {
-          return {
-            type: e.type,
-            start_index: e.start_index,
-            tokens: e.tokens,
-          };
-        }
-      ),
-      recognized_entities: importedData.recognized_entities.map(
-        (e: { type: string; start_index: number; tokens: string[] }) => {
-          return {
-            type: e.type,
-            start_index: e.start_index,
-            tokens: e.tokens,
-          };
-        }
-      ),
-      present_relations: importedData.present_relations.map(
-        (r: {
-          type: string;
-          source: { type: string; start_index: number; tokens: string[] };
-          target: { type: string; start_index: number; tokens: string[] };
-        }) => {
-          return { type: r.type, source: r.source, target: r.target };
-        }
-      ),
-    };
-
-    setAnnotationResult(annotationResult);
+    setIsLoading(false);
 
     toast({
       title: "File unploaded.",
@@ -110,14 +56,22 @@ export default function Visualization() {
       status: "success",
       duration: 9000,
       isClosable: true,
+      variant: "left-accent",
+      position: "top-right",
     });
   };
+
   return (
     <Box padding="2rem">
       <Heading mb={4}>PET Annotation Visualization</Heading>
       <Text fontSize="xl">Select a file to display.</Text>
       <FileUpload onInput={handleInput} />
-      {annotationResult && (
+      {isLoading && (
+        <Flex mt="192px" justifyContent="center">
+          <Spinner size="xl" color="green" />
+        </Flex>
+      )}
+      {annotationResult && !isLoading && (
         <>
           <Card mt={4}>
             <CardHeader>

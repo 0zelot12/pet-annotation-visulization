@@ -20,6 +20,7 @@ import {
   Spinner,
   Flex,
   VStack,
+  Button,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import {
@@ -29,6 +30,8 @@ import {
 import { AnnotationText } from "../components/annotation-text";
 import FileUpload from "../components/file-upload";
 import RelationDisplay from "../components/relation-display";
+import { ArrowLeftIcon } from "@chakra-ui/icons";
+import { Link } from "react-router-dom";
 
 export default function Visualization() {
   const [annotationResult, setAnnotationResult] =
@@ -66,6 +69,17 @@ export default function Visualization() {
     <Box padding="2rem">
       <Heading mb={4}>PET Annotation Visualization</Heading>
       <Text fontSize="xl">Select a file to display.</Text>
+      <Link to="/">
+        <Button
+          size="lg"
+          colorScheme="green"
+          mt="24px"
+          mr={2}
+          leftIcon={<ArrowLeftIcon />}
+        >
+          Back
+        </Button>
+      </Link>
       <FileUpload onInput={handleInput} />
       {isLoading && (
         <Flex mt="192px" justifyContent="center">

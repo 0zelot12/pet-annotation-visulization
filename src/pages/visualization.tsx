@@ -7,15 +7,6 @@ import {
   SimpleGrid,
   Text,
   useToast,
-  Stat,
-  StatLabel,
-  StatNumber,
-  StatGroup,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-  Tabs,
   Tag,
   Spinner,
   Flex,
@@ -32,6 +23,7 @@ import FileUpload from "../components/file-upload";
 import RelationDisplay from "../components/relation-display";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
+import EntityMetrics from "../components/entity-metrics";
 
 export default function Visualization() {
   const [annotationResult, setAnnotationResult] =
@@ -88,138 +80,7 @@ export default function Visualization() {
       )}
       {annotationResult && !isLoading && (
         <>
-          <Card mt={4}>
-            <CardHeader>
-              <Heading size="md">Entity metrics</Heading>
-            </CardHeader>
-            <CardBody>
-              <Tabs variant="enclosed" colorScheme="teal">
-                <TabList marginBottom={2}>
-                  <Tab>Overall</Tab>
-                  <Tab>Actor</Tab>
-                  <Tab>Activity</Tab>
-                  <Tab>Activity Data</Tab>
-                  <Tab>Further Specification</Tab>
-                </TabList>
-                <TabPanels>
-                  <TabPanel>
-                    <StatGroup>
-                      <Stat>
-                        <StatLabel>F1-Score</StatLabel>
-                        <StatNumber>
-                          {annotationResult.overall.f1_score}
-                        </StatNumber>
-                      </Stat>
-                      <Stat>
-                        <StatLabel>Recall</StatLabel>
-                        <StatNumber>
-                          {annotationResult.overall.recall}
-                        </StatNumber>
-                      </Stat>
-                      <Stat>
-                        <StatLabel>Precision</StatLabel>
-                        <StatNumber>
-                          {annotationResult.overall.precision}
-                        </StatNumber>
-                      </Stat>
-                      <Stat>
-                        <StatLabel>Absolute</StatLabel>
-                        <StatNumber>
-                          {annotationResult.overall.true_positives}/
-                          {annotationResult.overall.reference_count}
-                        </StatNumber>
-                      </Stat>
-                    </StatGroup>
-                  </TabPanel>
-                  <TabPanel>
-                    <StatGroup>
-                      <Stat>
-                        <StatLabel>F1-Score</StatLabel>
-                        <StatNumber>
-                          {annotationResult.actor.f1_score}
-                        </StatNumber>
-                      </Stat>
-                      <Stat>
-                        <StatLabel>Recall</StatLabel>
-                        <StatNumber>{annotationResult.actor.recall}</StatNumber>
-                      </Stat>
-                      <Stat>
-                        <StatLabel>Precision</StatLabel>
-                        <StatNumber>
-                          {annotationResult.actor.precision}
-                        </StatNumber>
-                      </Stat>
-                      <Stat>
-                        <StatLabel>Absolute</StatLabel>
-                        <StatNumber>
-                          {annotationResult.actor.true_positives}/
-                          {annotationResult.actor.reference_count}
-                        </StatNumber>
-                      </Stat>
-                    </StatGroup>
-                  </TabPanel>
-                  <TabPanel>
-                    <StatGroup>
-                      <Stat>
-                        <StatLabel>F1-Score</StatLabel>
-                        <StatNumber>
-                          {annotationResult.activity.f1_score}
-                        </StatNumber>
-                      </Stat>
-                      <Stat>
-                        <StatLabel>Recall</StatLabel>
-                        <StatNumber>
-                          {annotationResult.activity.recall}
-                        </StatNumber>
-                      </Stat>
-                      <Stat>
-                        <StatLabel>Precision</StatLabel>
-                        <StatNumber>
-                          {annotationResult.activity.precision}
-                        </StatNumber>
-                      </Stat>
-                      <Stat>
-                        <StatLabel>Absolute</StatLabel>
-                        <StatNumber>
-                          {annotationResult.activity.true_positives}/
-                          {annotationResult.activity.reference_count}
-                        </StatNumber>
-                      </Stat>
-                    </StatGroup>
-                  </TabPanel>
-                  <TabPanel>
-                    <StatGroup>
-                      <Stat>
-                        <StatLabel>F1-Score</StatLabel>
-                        <StatNumber>
-                          {annotationResult.activity_data.f1_score}
-                        </StatNumber>
-                      </Stat>
-                      <Stat>
-                        <StatLabel>Recall</StatLabel>
-                        <StatNumber>
-                          {annotationResult.activity_data.recall}
-                        </StatNumber>
-                      </Stat>
-                      <Stat>
-                        <StatLabel>Precision</StatLabel>
-                        <StatNumber>
-                          {annotationResult.activity_data.precision}
-                        </StatNumber>
-                      </Stat>
-                      <Stat>
-                        <StatLabel>Absolute</StatLabel>
-                        <StatNumber>
-                          {annotationResult.activity_data.true_positives}/
-                          {annotationResult.activity_data.reference_count}
-                        </StatNumber>
-                      </Stat>
-                    </StatGroup>
-                  </TabPanel>
-                </TabPanels>
-              </Tabs>
-            </CardBody>
-          </Card>
+          <EntityMetrics annotationResult={annotationResult} />
           <SimpleGrid columns={2} spacing={2} mt="24px">
             <Card>
               <CardHeader>

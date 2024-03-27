@@ -1,0 +1,141 @@
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  Heading,
+  Stat,
+  StatGroup,
+  StatLabel,
+  StatNumber,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+} from "@chakra-ui/react";
+import { AnnotationResult } from "../interfaces/annotation-result";
+
+export default function EntityMetrics({
+  annotationResult,
+}: {
+  annotationResult: AnnotationResult;
+}) {
+  return (
+    <Card mt={4}>
+      <CardHeader>
+        <Heading size="md">Entity metrics</Heading>
+      </CardHeader>
+      <CardBody>
+        <Tabs variant="enclosed" colorScheme="teal">
+          <TabList marginBottom={2}>
+            <Tab>Overall</Tab>
+            <Tab>Actor</Tab>
+            <Tab>Activity</Tab>
+            <Tab>Activity Data</Tab>
+            <Tab>Further Specification</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <StatGroup>
+                <Stat>
+                  <StatLabel>F1-Score</StatLabel>
+                  <StatNumber>{annotationResult.overall.f1_score}</StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Recall</StatLabel>
+                  <StatNumber>{annotationResult.overall.recall}</StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Precision</StatLabel>
+                  <StatNumber>{annotationResult.overall.precision}</StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Absolute</StatLabel>
+                  <StatNumber>
+                    {annotationResult.overall.true_positives}/
+                    {annotationResult.overall.reference_count}
+                  </StatNumber>
+                </Stat>
+              </StatGroup>
+            </TabPanel>
+            <TabPanel>
+              <StatGroup>
+                <Stat>
+                  <StatLabel>F1-Score</StatLabel>
+                  <StatNumber>{annotationResult.actor.f1_score}</StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Recall</StatLabel>
+                  <StatNumber>{annotationResult.actor.recall}</StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Precision</StatLabel>
+                  <StatNumber>{annotationResult.actor.precision}</StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Absolute</StatLabel>
+                  <StatNumber>
+                    {annotationResult.actor.true_positives}/
+                    {annotationResult.actor.reference_count}
+                  </StatNumber>
+                </Stat>
+              </StatGroup>
+            </TabPanel>
+            <TabPanel>
+              <StatGroup>
+                <Stat>
+                  <StatLabel>F1-Score</StatLabel>
+                  <StatNumber>{annotationResult.activity.f1_score}</StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Recall</StatLabel>
+                  <StatNumber>{annotationResult.activity.recall}</StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Precision</StatLabel>
+                  <StatNumber>{annotationResult.activity.precision}</StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Absolute</StatLabel>
+                  <StatNumber>
+                    {annotationResult.activity.true_positives}/
+                    {annotationResult.activity.reference_count}
+                  </StatNumber>
+                </Stat>
+              </StatGroup>
+            </TabPanel>
+            <TabPanel>
+              <StatGroup>
+                <Stat>
+                  <StatLabel>F1-Score</StatLabel>
+                  <StatNumber>
+                    {annotationResult.activity_data.f1_score}
+                  </StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Recall</StatLabel>
+                  <StatNumber>
+                    {annotationResult.activity_data.recall}
+                  </StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Precision</StatLabel>
+                  <StatNumber>
+                    {annotationResult.activity_data.precision}
+                  </StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Absolute</StatLabel>
+                  <StatNumber>
+                    {annotationResult.activity_data.true_positives}/
+                    {annotationResult.activity_data.reference_count}
+                  </StatNumber>
+                </Stat>
+              </StatGroup>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </CardBody>
+    </Card>
+  );
+}

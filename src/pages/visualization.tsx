@@ -20,11 +20,11 @@ import {
 } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { useState } from "react";
-import { AnnotationResult } from "./interfaces/annotation-result";
-import { AnnotationText } from "./components/annotation-text";
-import FileUpload from "./components/file-upload";
+import { AnnotationResult } from "../interfaces/annotation-result";
+import { AnnotationText } from "../components/annotation-text";
+import FileUpload from "../components/file-upload";
 
-export default function App() {
+export default function Visualization() {
   const [annotationResult, setAnnotationResult] =
     useState<AnnotationResult | null>(null);
 

@@ -20,7 +20,7 @@ export default function FileUpload({
       <input hidden ref={fileInputRef} type="file" onChange={onInput} />
       <Button
         size="lg"
-        colorScheme="green"
+        colorScheme="teal"
         mt="24px"
         leftIcon={<AddIcon />}
         onClick={handleClick}

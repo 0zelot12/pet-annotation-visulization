@@ -29,7 +29,11 @@ import {
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const availableModels = ["gpt-3.5-turbo", "gpt-4.5-turbo", "gpt-4"];
+const availableModels = [
+  "gpt-3.5-turbo-0125",
+  "gpt-4-0613",
+  "gpt-4-1106-preview",
+];
 const availableDocs = [
   "doc-1.1",
   "doc-1.2",
@@ -41,7 +45,7 @@ const availableDocs = [
 ];
 
 export default function Annotation() {
-  const [model, setModel] = useState<string>("gpt-3.5-turbo");
+  const [model, setModel] = useState<string>("gpt-3.5-turbo-0125");
   const [temperature, setTemperature] = useState<number>(0.7);
   return (
     <Box padding="2rem">
@@ -50,7 +54,7 @@ export default function Annotation() {
       <Link to="/">
         <Button
           size="lg"
-          colorScheme="green"
+          colorScheme="teal"
           mt="24px"
           mr={2}
           leftIcon={<ArrowLeftIcon />}
@@ -65,7 +69,7 @@ export default function Annotation() {
         <CardBody>
           <VStack align="start" divider={<Divider />} spacing={8}>
             <Box>
-              <FormControl>
+              <FormControl variant="">
                 <FormLabel>Model</FormLabel>
                 <Menu>
                   <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
@@ -85,7 +89,7 @@ export default function Annotation() {
               <FormLabel>Documents to be annotated</FormLabel>
               <HStack>
                 {availableDocs.map((doc) => (
-                  <Tag colorScheme="green" size="lg">
+                  <Tag colorScheme="teal" size="lg">
                     <TagLeftIcon boxSize="12px" as={AddIcon} />
                     <TagLabel>{doc}</TagLabel>
                   </Tag>
@@ -96,7 +100,7 @@ export default function Annotation() {
               <FormLabel>Documents to use as context</FormLabel>
               <HStack>
                 {availableDocs.map((doc) => (
-                  <Tag colorScheme="green" size="lg">
+                  <Tag colorScheme="teal" size="lg">
                     <TagLeftIcon boxSize="12px" as={AddIcon} />
                     <TagLabel>{doc}</TagLabel>
                   </Tag>
@@ -125,7 +129,7 @@ export default function Annotation() {
           </VStack>
         </CardBody>
         <CardFooter>
-          <Button size="lg" colorScheme="green" mr={2}>
+          <Button size="lg" colorScheme="teal" mr={2}>
             Annotate
           </Button>
           <Button size="lg" colorScheme="red">

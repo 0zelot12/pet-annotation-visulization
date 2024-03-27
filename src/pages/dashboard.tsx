@@ -7,12 +7,12 @@ export default function Dashboard() {
       <Heading mb={4}>PET Visualizer</Heading>
       <Text fontSize="xl">Content coming soon...</Text>
       <Link to="/annotation">
-        <Button size="lg" colorScheme="green" mt="24px" mr={2}>
+        <Button size="lg" colorScheme="teal" mt="24px" mr={2}>
           Annotation
         </Button>
       </Link>
       <Link to="/visualization">
-        <Button size="lg" colorScheme="green" mt="24px">
+        <Button size="lg" colorScheme="teal" mt="24px">
           Visualization
         </Button>
       </Link>

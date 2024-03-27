@@ -72,7 +72,7 @@ export default function Visualization() {
       <Link to="/">
         <Button
           size="lg"
-          colorScheme="green"
+          colorScheme="teal"
           mt="24px"
           mr={2}
           leftIcon={<ArrowLeftIcon />}
@@ -83,7 +83,7 @@ export default function Visualization() {
       <FileUpload onInput={handleInput} />
       {isLoading && (
         <Flex mt="192px" justifyContent="center">
-          <Spinner size="xl" color="green" />
+          <Spinner size="xl" color="teal" />
         </Flex>
       )}
       {annotationResult && !isLoading && (
@@ -93,7 +93,7 @@ export default function Visualization() {
               <Heading size="md">Entity metrics</Heading>
             </CardHeader>
             <CardBody>
-              <Tabs variant="enclosed" colorScheme="green">
+              <Tabs variant="enclosed" colorScheme="teal">
                 <TabList marginBottom={2}>
                   <Tab>Overall</Tab>
                   <Tab>Actor</Tab>
@@ -227,7 +227,7 @@ export default function Visualization() {
                   <Text as="span" marginRight={2}>
                     Model
                   </Text>
-                  <Tag colorScheme="green">GPT-3.5-Turbo</Tag>
+                  <Tag colorScheme="teal">GPT-3.5-Turbo</Tag>
                 </Heading>
               </CardHeader>
               <CardBody>

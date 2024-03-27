@@ -19,8 +19,8 @@ import {
   Tag,
   Spinner,
   Flex,
+  VStack,
 } from "@chakra-ui/react";
-import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import {
   AnnotationResult,
@@ -28,6 +28,7 @@ import {
 } from "../interfaces/annotation-result";
 import { AnnotationText } from "../components/annotation-text";
 import FileUpload from "../components/file-upload";
+import RelationDisplay from "../components/relation-display";
 
 export default function Visualization() {
   const [annotationResult, setAnnotationResult] =
@@ -239,31 +240,11 @@ export default function Visualization() {
               <Heading size="md">Relations</Heading>
             </CardHeader>
             <CardBody>
-              {annotationResult.present_relations.map((r) => {
-                return (
-                  <Box mb={4}>
-                    {r.source ? (
-                      <Tag size="lg" mr={1}>
-                        {r.source.tokens.join(" ")}
-                      </Tag>
-                    ) : (
-                      <Tag size="lg" mr={1}>
-                        {"Source not set"}
-                      </Tag>
-                    )}
-                    <ArrowForwardIcon mr={1} />
-                    <Tag size="lg" mr={1}>
-                      {r.type}
-                    </Tag>
-                    <ArrowForwardIcon mr={1} />
-                    {r.target ? (
-                      <Tag size="lg">{r.target.tokens.join(" ")}</Tag>
-                    ) : (
-                      <Tag size="lg">{"Target not set"}</Tag>
-                    )}
-                  </Box>
-                );
-              })}
+              <VStack spacing={4} align="start">
+                {annotationResult.present_relations.map((r) => (
+                  <RelationDisplay relation={r} />
+                ))}
+              </VStack>
             </CardBody>
           </Card>
         </>

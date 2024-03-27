@@ -42,17 +42,17 @@ export default function Visualization() {
     $event.target.value = "";
 
     const dataString = await file.text();
-    setAnnotationResult(plainToClass(dataString));
+    const annotationResult = plainToClass(dataString);
+    setAnnotationResult(annotationResult);
 
     setIsLoading(false);
 
     toast({
-      title: "File unploaded.",
-      description: "File uploaded successfully!",
-      status: "success",
-      duration: 9000,
-      isClosable: true,
+      title: "Upload",
+      description: `${annotationResult.name} uploaded successfully!`,
+      duration: 2250,
       variant: "left-accent",
+      colorScheme: "teal",
       position: "top-right",
     });
   };

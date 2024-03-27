@@ -28,20 +28,103 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import DocumentTagDisplay from "../components/document-tag-display";
+
+export interface Document {
+  name: string;
+}
+
+export interface DocumentGroup {
+  number: number;
+  documents: Document[];
+}
 
 const availableModels = [
   "gpt-3.5-turbo-0125",
   "gpt-4-0613",
   "gpt-4-1106-preview",
 ];
-const availableDocs = [
-  "doc-1.1",
-  "doc-1.2",
-  "doc-1.3",
-  "doc-2.1",
-  "doc-2.2",
-  "doc-2.3",
-  "doc-2.4",
+
+const availableDocs: DocumentGroup[] = [
+  {
+    number: 1,
+    documents: [{ name: "doc-1.1" }, { name: "doc-1.2" }, { name: "doc-1.3" }],
+  },
+  {
+    number: 2,
+    documents: [
+      { name: "doc-2.1" },
+      { name: "doc-2.2" },
+      { name: "doc-2.3" },
+      { name: "doc-2.4" },
+      { name: "doc-2.5" },
+    ],
+  },
+  {
+    number: 3,
+    documents: [
+      { name: "doc-3.1" },
+      { name: "doc-3.2" },
+      { name: "doc-3.3" },
+      { name: "doc-3.4" },
+      { name: "doc-3.5" },
+      { name: "doc-3.6" },
+      { name: "doc-3.7" },
+    ],
+  },
+  {
+    number: 4,
+    documents: [
+      { name: "doc-4.1" },
+      { name: "doc-4.2" },
+      { name: "doc-4.3" },
+      { name: "doc-4.4" },
+      { name: "doc-4.5" },
+    ],
+  },
+  {
+    number: 6,
+    documents: [
+      { name: "doc-6.1" },
+      { name: "doc-6.2" },
+      { name: "doc-6.3" },
+      { name: "doc-6.4" },
+      { name: "doc-6.5" },
+      { name: "doc-6.6" },
+      { name: "doc-6.7" },
+      { name: "doc-6.8" },
+    ],
+  },
+  {
+    number: 7,
+    documents: [
+      { name: "doc-7.1" },
+      { name: "doc-7.2" },
+      { name: "doc-7.3" },
+      { name: "doc-7.4" },
+      { name: "doc-7.5" },
+      { name: "doc-7.6" },
+      { name: "doc-7.7" },
+      { name: "doc-7.8" },
+    ],
+  },
+  {
+    number: 8,
+    documents: [{ name: "doc-8.1" }, { name: "doc-8.2" }, { name: "doc-8.3" }],
+  },
+  {
+    number: 9,
+    documents: [{ name: "doc-9.1" }, { name: "doc-9.2" }],
+  },
+  {
+    number: 10,
+    documents: [
+      { name: "doc-10.1" },
+      { name: "doc-10.2" },
+      { name: "doc-10.3" },
+      { name: "doc-10.4" },
+    ],
+  },
 ];
 
 export default function Annotation() {
@@ -101,14 +184,11 @@ export default function Annotation() {
                   </Box>
                 </HStack>
               </Box>
-              <HStack>
-                {availableDocs.map((doc) => (
-                  <Tag colorScheme="teal" size="lg">
-                    <TagLeftIcon boxSize="12px" as={AddIcon} />
-                    <TagLabel>{doc}</TagLabel>
-                  </Tag>
+              <VStack align="start">
+                {availableDocs.map((group) => (
+                  <DocumentTagDisplay documents={group.documents} />
                 ))}
-              </HStack>
+              </VStack>
             </Box>
             <Box>
               <Box mb={2}>
@@ -126,14 +206,11 @@ export default function Annotation() {
                   </Box>
                 </HStack>
               </Box>
-              <HStack>
-                {availableDocs.map((doc) => (
-                  <Tag colorScheme="teal" size="lg">
-                    <TagLeftIcon boxSize="12px" as={AddIcon} />
-                    <TagLabel>{doc}</TagLabel>
-                  </Tag>
+              <VStack align="start">
+                {availableDocs.map((group) => (
+                  <DocumentTagDisplay documents={group.documents} />
                 ))}
-              </HStack>
+              </VStack>
             </Box>
             <Box>
               <FormControl>

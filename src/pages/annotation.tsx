@@ -86,7 +86,15 @@ export default function Annotation() {
               </FormControl>
             </Box>
             <Box>
-              <FormLabel>Documents to be annotated</FormLabel>
+              <Text>Documents to be annotated</Text>
+              <Box my={2}>
+                <Button colorScheme="teal" size="sm" variant="ghost" mr={2}>
+                  Select all
+                </Button>
+                <Button colorScheme="teal" size="sm" variant="ghost">
+                  Reset selection
+                </Button>
+              </Box>
               <HStack>
                 {availableDocs.map((doc) => (
                   <Tag colorScheme="teal" size="lg">
@@ -97,7 +105,15 @@ export default function Annotation() {
               </HStack>
             </Box>
             <Box>
-              <FormLabel>Documents to use as context</FormLabel>
+              <Text>Documents to use as context</Text>
+              <Box my={2}>
+                <Button colorScheme="teal" size="sm" variant="ghost" mr={2}>
+                  Select all
+                </Button>
+                <Button colorScheme="teal" size="sm" variant="ghost">
+                  Reset selection
+                </Button>
+              </Box>
               <HStack>
                 {availableDocs.map((doc) => (
                   <Tag colorScheme="teal" size="lg">

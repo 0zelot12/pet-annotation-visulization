@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Dashboard from "./pages/dashboard.tsx";
 import Visualization from "./pages/visualization.tsx";
 import Annotation from "./pages/annotation.tsx";
+import DocumentExplorer from "./pages/document-explorer.tsx";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/annotation",
     element: <Annotation />,
+  },
+  {
+    path: "/document-explorer",
+    element: <DocumentExplorer />,
   },
 ]);
 

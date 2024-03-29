@@ -1,4 +1,4 @@
-import { Box, Heading, Text, Button } from "@chakra-ui/react";
+import { Box, Heading, Text, Button, HStack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 export default function Dashboard() {
@@ -6,16 +6,23 @@ export default function Dashboard() {
     <Box padding="2rem">
       <Heading mb={4}>PET Visualizer</Heading>
       <Text fontSize="xl">Content coming soon...</Text>
-      <Link to="/annotation">
-        <Button size="lg" colorScheme="teal" mt="24px" mr={2}>
-          Annotation
-        </Button>
-      </Link>
-      <Link to="/visualization">
-        <Button size="lg" colorScheme="teal" mt="24px">
-          Visualization
-        </Button>
-      </Link>
+      <HStack mt="24px" spacing={2}>
+        <Link to="/annotation">
+          <Button size="lg" colorScheme="teal">
+            Annotation
+          </Button>
+        </Link>
+        <Link to="/visualization">
+          <Button size="lg" colorScheme="teal">
+            Visualization
+          </Button>
+        </Link>
+        <Link to="/document-explorer">
+          <Button size="lg" colorScheme="teal">
+            Document Explorer
+          </Button>
+        </Link>
+      </HStack>
     </Box>
   );
 }

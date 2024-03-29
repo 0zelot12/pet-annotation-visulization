@@ -7,6 +7,7 @@ import {
   Heading,
   Input,
   Text,
+  VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { AnnotationText } from "../components/annotation-text";
@@ -29,27 +30,37 @@ export default function DocumentExplorer() {
     <Box padding="2rem">
       <Heading mb={4}>Document Explorer</Heading>
       <Text fontSize="xl">Select a document to explore.</Text>
-      <Input
-        value={documentName}
-        placeholder="Document Name"
-        onChange={(event) => setDocumentName(event.target.value)}
-      ></Input>
-      <Button size="lg" colorScheme="teal" onClick={handleFetchDocument}>
-        Fetch Document
-      </Button>
-      {document && (
-        <Card>
-          <CardHeader>
-            <Heading size="md">{document.document_name}</Heading>
-          </CardHeader>
-          <CardBody>
-            <AnnotationText
-              entities={document.entities}
-              tokens={document.tokens}
-            ></AnnotationText>
-          </CardBody>
-        </Card>
-      )}
+      <VStack spacing={2} align="start" mt={4}>
+        <Input
+          value={documentName}
+          placeholder="Document Name"
+          onChange={(event) => setDocumentName(event.target.value)}
+        ></Input>
+        <Button size="lg" colorScheme="teal" onClick={handleFetchDocument}>
+          Fetch Document
+        </Button>
+        {document && (
+          <>
+            <Card>
+              <CardHeader>
+                <Heading size="md">{document.document_name}</Heading>
+              </CardHeader>
+              <CardBody>
+                <AnnotationText
+                  entities={document.entities}
+                  tokens={document.tokens}
+                ></AnnotationText>
+              </CardBody>
+            </Card>
+            <Card>
+              <CardHeader>
+                <Heading size="md">Relations</Heading>
+              </CardHeader>
+              <CardBody></CardBody>
+            </Card>
+          </>
+        )}
+      </VStack>
     </Box>
   );
 }

@@ -6,6 +6,7 @@ import Dashboard from "./pages/dashboard.tsx";
 import Visualization from "./pages/visualization.tsx";
 import Annotation from "./pages/annotation.tsx";
 import DocumentExplorer from "./pages/document-explorer.tsx";
+import theme from "./theme.ts";
 
 const router = createBrowserRouter([
   {
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <RouterProvider router={router} />
     </ChakraProvider>
   </React.StrictMode>

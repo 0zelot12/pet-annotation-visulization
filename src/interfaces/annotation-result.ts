@@ -8,6 +8,10 @@ export interface AnnotationResult {
   actor: Metrics;
   activity: Metrics;
   activity_data: Metrics;
+  and_gateway: Metrics;
+  xor_gateway: Metrics;
+  condition_specification: Metrics;
+  further_specification: Metrics;
   tokens: string[];
   present_entities: Entity[];
   recognized_entities: Entity[];
@@ -45,6 +49,37 @@ export function plainToClass(dataString: string): AnnotationResult {
       f1_score: importedData.metrics.activity_data.f1_score,
       true_positives: importedData.metrics.activity_data.true_positives,
       reference_count: importedData.metrics.activity_data.reference_count,
+    },
+    further_specification: {
+      precision: importedData.metrics.further_specification.precision,
+      recall: importedData.metrics.further_specification.recall,
+      f1_score: importedData.metrics.further_specification.f1_score,
+      true_positives: importedData.metrics.further_specification.true_positives,
+      reference_count:
+        importedData.metrics.further_specification.reference_count,
+    },
+    condition_specification: {
+      precision: importedData.metrics.condition_specification.precision,
+      recall: importedData.metrics.condition_specification.recall,
+      f1_score: importedData.metrics.condition_specification.f1_score,
+      true_positives:
+        importedData.metrics.condition_specification.true_positives,
+      reference_count:
+        importedData.metrics.condition_specification.reference_count,
+    },
+    and_gateway: {
+      precision: importedData.metrics.and_gateway.precision,
+      recall: importedData.metrics.and_gateway.recall,
+      f1_score: importedData.metrics.and_gateway.f1_score,
+      true_positives: importedData.metrics.and_gateway.true_positives,
+      reference_count: importedData.metrics.and_gateway.reference_count,
+    },
+    xor_gateway: {
+      precision: importedData.metrics.xor_gateway.precision,
+      recall: importedData.metrics.xor_gateway.recall,
+      f1_score: importedData.metrics.xor_gateway.f1_score,
+      true_positives: importedData.metrics.xor_gateway.true_positives,
+      reference_count: importedData.metrics.xor_gateway.reference_count,
     },
     tokens: importedData.tokens,
     present_entities: importedData.present_entities.map(

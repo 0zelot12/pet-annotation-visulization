@@ -33,6 +33,9 @@ export default function EntityMetrics({
             <Tab>Activity</Tab>
             <Tab>Activity Data</Tab>
             <Tab>Further Specification</Tab>
+            <Tab>XOR-Gateway</Tab>
+            <Tab>AND-Gateway</Tab>
+            <Tab>Condition Specification</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
@@ -129,6 +132,118 @@ export default function EntityMetrics({
                   <StatNumber>
                     {annotationResult.activity_data.true_positives}/
                     {annotationResult.activity_data.reference_count}
+                  </StatNumber>
+                </Stat>
+              </StatGroup>
+            </TabPanel>
+            <TabPanel>
+              <StatGroup>
+                <Stat>
+                  <StatLabel>F1-Score</StatLabel>
+                  <StatNumber>
+                    {annotationResult.further_specification.f1_score}
+                  </StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Recall</StatLabel>
+                  <StatNumber>
+                    {annotationResult.further_specification.recall}
+                  </StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Precision</StatLabel>
+                  <StatNumber>
+                    {annotationResult.further_specification.precision}
+                  </StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Absolute</StatLabel>
+                  <StatNumber>
+                    {annotationResult.further_specification.true_positives}/
+                    {annotationResult.further_specification.reference_count}
+                  </StatNumber>
+                </Stat>
+              </StatGroup>
+            </TabPanel>
+            <TabPanel>
+              <StatGroup>
+                <Stat>
+                  <StatLabel>F1-Score</StatLabel>
+                  <StatNumber>
+                    {annotationResult.xor_gateway.f1_score}
+                  </StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Recall</StatLabel>
+                  <StatNumber>{annotationResult.xor_gateway.recall}</StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Precision</StatLabel>
+                  <StatNumber>
+                    {annotationResult.xor_gateway.precision}
+                  </StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Absolute</StatLabel>
+                  <StatNumber>
+                    {annotationResult.xor_gateway.true_positives}/
+                    {annotationResult.xor_gateway.reference_count}
+                  </StatNumber>
+                </Stat>
+              </StatGroup>
+            </TabPanel>
+            <TabPanel>
+              <StatGroup>
+                <Stat>
+                  <StatLabel>F1-Score</StatLabel>
+                  <StatNumber>
+                    {annotationResult.and_gateway.f1_score}
+                  </StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Recall</StatLabel>
+                  <StatNumber>{annotationResult.and_gateway.recall}</StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Precision</StatLabel>
+                  <StatNumber>
+                    {annotationResult.and_gateway.precision}
+                  </StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Absolute</StatLabel>
+                  <StatNumber>
+                    {annotationResult.and_gateway.true_positives}/
+                    {annotationResult.and_gateway.reference_count}
+                  </StatNumber>
+                </Stat>
+              </StatGroup>
+            </TabPanel>
+            <TabPanel>
+              <StatGroup>
+                <Stat>
+                  <StatLabel>F1-Score</StatLabel>
+                  <StatNumber>
+                    {annotationResult.condition_specification.f1_score}
+                  </StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Recall</StatLabel>
+                  <StatNumber>
+                    {annotationResult.condition_specification.recall}
+                  </StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Precision</StatLabel>
+                  <StatNumber>
+                    {annotationResult.condition_specification.precision}
+                  </StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Absolute</StatLabel>
+                  <StatNumber>
+                    {annotationResult.condition_specification.true_positives}/
+                    {annotationResult.condition_specification.reference_count}
                   </StatNumber>
                 </Stat>
               </StatGroup>

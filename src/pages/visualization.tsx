@@ -7,7 +7,6 @@ import {
   SimpleGrid,
   Text,
   useToast,
-  Tag,
   Spinner,
   Flex,
   VStack,
@@ -85,12 +84,7 @@ export default function Visualization() {
           <SimpleGrid columns={2} spacing={2} mt="24px">
             <Card>
               <CardHeader>
-                <Heading size="md">
-                  <Text as="span" marginRight={2}>
-                    Model
-                  </Text>
-                  <Tag colorScheme="teal">GPT-3.5-Turbo</Tag>
-                </Heading>
+                <Heading size="md">Reference Entities</Heading>
               </CardHeader>
               <CardBody>
                 <AnnotationText
@@ -101,7 +95,7 @@ export default function Visualization() {
             </Card>
             <Card>
               <CardHeader>
-                <Heading size="md">Reference</Heading>
+                <Heading size="md">Model Entities</Heading>
               </CardHeader>
               <CardBody>
                 <AnnotationText
@@ -111,25 +105,34 @@ export default function Visualization() {
               </CardBody>
             </Card>
           </SimpleGrid>
-          <Card mt={4}>
-            <CardHeader>
-              <Heading size="md">Relations</Heading>
-            </CardHeader>
-            <CardBody>
-              <SimpleGrid columns={2}>
-                <VStack spacing={4} align="start">
-                  {annotationResult.present_relations.map((r) => (
-                    <RelationDisplay relation={r} />
-                  ))}
-                </VStack>
-                <VStack spacing={4} align="start">
-                  {annotationResult.recognized_relations.map((r) => (
-                    <RelationDisplay relation={r} />
-                  ))}
-                </VStack>
-              </SimpleGrid>
-            </CardBody>
-          </Card>
+          <Box mt={4}>
+            <SimpleGrid columns={2}>
+              <Card>
+                <CardHeader>
+                  <Heading size="md">Reference Relations</Heading>
+                </CardHeader>
+                <CardBody>
+                  <VStack spacing={4} align="start">
+                    {annotationResult.present_relations.map((r) => (
+                      <RelationDisplay relation={r} />
+                    ))}
+                  </VStack>
+                </CardBody>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <Heading size="md">Reference Entities</Heading>
+                </CardHeader>
+                <CardBody>
+                  <VStack spacing={4} align="start">
+                    {annotationResult.recognized_relations.map((r) => (
+                      <RelationDisplay relation={r} />
+                    ))}
+                  </VStack>
+                </CardBody>
+              </Card>
+            </SimpleGrid>
+          </Box>
         </>
       )}
     </Box>

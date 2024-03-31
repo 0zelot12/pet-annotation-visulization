@@ -16,6 +16,7 @@ export interface AnnotationResult {
   present_entities: Entity[];
   recognized_entities: Entity[];
   present_relations: Relation[];
+  recognized_relations: Relation[];
 }
 
 export function plainToClass(dataString: string): AnnotationResult {
@@ -101,6 +102,15 @@ export function plainToClass(dataString: string): AnnotationResult {
       }
     ),
     present_relations: importedData.present_relations.map(
+      (r: {
+        type: string;
+        source: { type: string; start_index: number; tokens: string[] };
+        target: { type: string; start_index: number; tokens: string[] };
+      }) => {
+        return { type: r.type, source: r.source, target: r.target };
+      }
+    ),
+    recognized_relations: importedData.recognized_relations.map(
       (r: {
         type: string;
         source: { type: string; start_index: number; tokens: string[] };

@@ -1,7 +1,6 @@
 import { Tag, Tooltip } from "@chakra-ui/react";
 
 export function Annotation({ text, type }: { text: string; type: string }) {
-  console.log(type);
   if (type === "ACTIVITY") {
     return (
       <Tooltip label="ACTIVITY" fontSize="md">

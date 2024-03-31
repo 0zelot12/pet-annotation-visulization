@@ -15,6 +15,8 @@ import {
 } from "@chakra-ui/react";
 import { AnnotationResult } from "../interfaces/annotation-result";
 
+// TODO: Extract components!
+
 export default function EntityMetrics({
   annotationResult,
 }: {

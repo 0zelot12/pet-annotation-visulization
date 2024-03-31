@@ -12,7 +12,6 @@ import {
   Flex,
   VStack,
   Button,
-  HStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import {
@@ -117,7 +116,7 @@ export default function Visualization() {
               <Heading size="md">Relations</Heading>
             </CardHeader>
             <CardBody>
-              <HStack>
+              <SimpleGrid columns={2}>
                 <VStack spacing={4} align="start">
                   {annotationResult.present_relations.map((r) => (
                     <RelationDisplay relation={r} />
@@ -128,7 +127,7 @@ export default function Visualization() {
                     <RelationDisplay relation={r} />
                   ))}
                 </VStack>
-              </HStack>
+              </SimpleGrid>
             </CardBody>
           </Card>
         </>

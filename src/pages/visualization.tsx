@@ -23,6 +23,7 @@ import RelationDisplay from "../components/relation-display";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import EntityMetrics from "../components/entity-metrics";
+import RelationMetrics from "../components/relation-metrics";
 
 export default function Visualization() {
   const [annotationResult, setAnnotationResult] =
@@ -105,8 +106,9 @@ export default function Visualization() {
               </CardBody>
             </Card>
           </SimpleGrid>
+          <RelationMetrics annotationResult={annotationResult} />
           <Box mt={4}>
-            <SimpleGrid columns={2}>
+            <SimpleGrid columns={2} spacing={2}>
               <Card>
                 <CardHeader>
                   <Heading size="md">Reference Relations</Heading>

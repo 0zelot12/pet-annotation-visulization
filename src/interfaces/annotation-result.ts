@@ -21,66 +21,88 @@ export interface AnnotationResult {
 
 export function plainToClass(dataString: string): AnnotationResult {
   const importedData = JSON.parse(dataString);
+  console.log(importedData);
   return {
     name: importedData.document_name,
     overall: {
-      precision: importedData.metrics.overall.precision,
-      recall: importedData.metrics.overall.recall,
-      f1_score: importedData.metrics.overall.f1_score,
-      true_positives: importedData.metrics.overall.true_positives,
-      reference_count: importedData.metrics.overall.reference_count,
+      precision: importedData.metrics.entity_metrics.overall.precision,
+      recall: importedData.metrics.entity_metrics.overall.recall,
+      f1_score: importedData.metrics.entity_metrics.overall.f1_score,
+      true_positives:
+        importedData.metrics.entity_metrics.overall.true_positives,
+      reference_count:
+        importedData.metrics.entity_metrics.overall.reference_count,
     },
     actor: {
-      precision: importedData.metrics.actor.precision,
-      recall: importedData.metrics.actor.recall,
-      f1_score: importedData.metrics.actor.f1_score,
-      true_positives: importedData.metrics.actor.true_positives,
-      reference_count: importedData.metrics.actor.reference_count,
+      precision: importedData.metrics.entity_metrics.actor.precision,
+      recall: importedData.metrics.entity_metrics.actor.recall,
+      f1_score: importedData.metrics.entity_metrics.actor.f1_score,
+      true_positives: importedData.metrics.entity_metrics.actor.true_positives,
+      reference_count:
+        importedData.metrics.entity_metrics.actor.reference_count,
     },
     activity: {
-      precision: importedData.metrics.activity.precision,
-      recall: importedData.metrics.activity.recall,
-      f1_score: importedData.metrics.activity.f1_score,
-      true_positives: importedData.metrics.activity.true_positives,
-      reference_count: importedData.metrics.activity.reference_count,
+      precision: importedData.metrics.entity_metrics.activity.precision,
+      recall: importedData.metrics.entity_metrics.activity.recall,
+      f1_score: importedData.metrics.entity_metrics.activity.f1_score,
+      true_positives:
+        importedData.metrics.entity_metrics.activity.true_positives,
+      reference_count:
+        importedData.metrics.entity_metrics.activity.reference_count,
     },
     activity_data: {
-      precision: importedData.metrics.activity_data.precision,
-      recall: importedData.metrics.activity_data.recall,
-      f1_score: importedData.metrics.activity_data.f1_score,
-      true_positives: importedData.metrics.activity_data.true_positives,
-      reference_count: importedData.metrics.activity_data.reference_count,
+      precision: importedData.metrics.entity_metrics.activity_data.precision,
+      recall: importedData.metrics.entity_metrics.activity_data.recall,
+      f1_score: importedData.metrics.entity_metrics.activity_data.f1_score,
+      true_positives:
+        importedData.metrics.entity_metrics.activity_data.true_positives,
+      reference_count:
+        importedData.metrics.entity_metrics.activity_data.reference_count,
     },
     further_specification: {
-      precision: importedData.metrics.further_specification.precision,
-      recall: importedData.metrics.further_specification.recall,
-      f1_score: importedData.metrics.further_specification.f1_score,
-      true_positives: importedData.metrics.further_specification.true_positives,
+      precision:
+        importedData.metrics.entity_metrics.further_specification.precision,
+      recall: importedData.metrics.entity_metrics.further_specification.recall,
+      f1_score:
+        importedData.metrics.entity_metrics.further_specification.f1_score,
+      true_positives:
+        importedData.metrics.entity_metrics.further_specification
+          .true_positives,
       reference_count:
-        importedData.metrics.further_specification.reference_count,
+        importedData.metrics.entity_metrics.further_specification
+          .reference_count,
     },
     condition_specification: {
-      precision: importedData.metrics.condition_specification.precision,
-      recall: importedData.metrics.condition_specification.recall,
-      f1_score: importedData.metrics.condition_specification.f1_score,
+      precision:
+        importedData.metrics.entity_metrics.condition_specification.precision,
+      recall:
+        importedData.metrics.entity_metrics.condition_specification.recall,
+      f1_score:
+        importedData.metrics.entity_metrics.condition_specification.f1_score,
       true_positives:
-        importedData.metrics.condition_specification.true_positives,
+        importedData.metrics.entity_metrics.condition_specification
+          .true_positives,
       reference_count:
-        importedData.metrics.condition_specification.reference_count,
+        importedData.metrics.entity_metrics.condition_specification
+          .reference_count,
     },
     and_gateway: {
-      precision: importedData.metrics.and_gateway.precision,
-      recall: importedData.metrics.and_gateway.recall,
-      f1_score: importedData.metrics.and_gateway.f1_score,
-      true_positives: importedData.metrics.and_gateway.true_positives,
-      reference_count: importedData.metrics.and_gateway.reference_count,
+      precision: importedData.metrics.entity_metrics.and_gateway.precision,
+      recall: importedData.metrics.entity_metrics.and_gateway.recall,
+      f1_score: importedData.metrics.entity_metrics.and_gateway.f1_score,
+      true_positives:
+        importedData.metrics.entity_metrics.and_gateway.true_positives,
+      reference_count:
+        importedData.metrics.entity_metrics.and_gateway.reference_count,
     },
     xor_gateway: {
-      precision: importedData.metrics.xor_gateway.precision,
-      recall: importedData.metrics.xor_gateway.recall,
-      f1_score: importedData.metrics.xor_gateway.f1_score,
-      true_positives: importedData.metrics.xor_gateway.true_positives,
-      reference_count: importedData.metrics.xor_gateway.reference_count,
+      precision: importedData.metrics.entity_metrics.xor_gateway.precision,
+      recall: importedData.metrics.entity_metrics.xor_gateway.recall,
+      f1_score: importedData.metrics.entity_metrics.xor_gateway.f1_score,
+      true_positives:
+        importedData.metrics.entity_metrics.xor_gateway.true_positives,
+      reference_count:
+        importedData.metrics.entity_metrics.xor_gateway.reference_count,
     },
     tokens: importedData.tokens,
     present_entities: importedData.present_entities.map(

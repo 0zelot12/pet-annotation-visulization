@@ -42,67 +42,27 @@ export default function RelationMetrics({
               <StatGroup>
                 <Stat>
                   <StatLabel>F1-Score</StatLabel>
-                  <StatNumber>{annotationResult.overall.f1_score}</StatNumber>
-                </Stat>
-                <Stat>
-                  <StatLabel>Recall</StatLabel>
-                  <StatNumber>{annotationResult.overall.recall}</StatNumber>
-                </Stat>
-                <Stat>
-                  <StatLabel>Precision</StatLabel>
-                  <StatNumber>{annotationResult.overall.precision}</StatNumber>
-                </Stat>
-                <Stat>
-                  <StatLabel>Absolute</StatLabel>
                   <StatNumber>
-                    {annotationResult.overall.true_positives}/
-                    {annotationResult.overall.reference_count}
+                    {annotationResult.overall_relation.f1_score}
                   </StatNumber>
                 </Stat>
-              </StatGroup>
-            </TabPanel>
-            <TabPanel>
-              <StatGroup>
-                <Stat>
-                  <StatLabel>F1-Score</StatLabel>
-                  <StatNumber>{annotationResult.actor.f1_score}</StatNumber>
-                </Stat>
                 <Stat>
                   <StatLabel>Recall</StatLabel>
-                  <StatNumber>{annotationResult.actor.recall}</StatNumber>
-                </Stat>
-                <Stat>
-                  <StatLabel>Precision</StatLabel>
-                  <StatNumber>{annotationResult.actor.precision}</StatNumber>
-                </Stat>
-                <Stat>
-                  <StatLabel>Absolute</StatLabel>
                   <StatNumber>
-                    {annotationResult.actor.true_positives}/
-                    {annotationResult.actor.reference_count}
+                    {annotationResult.overall_relation.recall}
                   </StatNumber>
                 </Stat>
-              </StatGroup>
-            </TabPanel>
-            <TabPanel>
-              <StatGroup>
-                <Stat>
-                  <StatLabel>F1-Score</StatLabel>
-                  <StatNumber>{annotationResult.activity.f1_score}</StatNumber>
-                </Stat>
-                <Stat>
-                  <StatLabel>Recall</StatLabel>
-                  <StatNumber>{annotationResult.activity.recall}</StatNumber>
-                </Stat>
                 <Stat>
                   <StatLabel>Precision</StatLabel>
-                  <StatNumber>{annotationResult.activity.precision}</StatNumber>
+                  <StatNumber>
+                    {annotationResult.overall_relation.precision}
+                  </StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Absolute</StatLabel>
                   <StatNumber>
-                    {annotationResult.activity.true_positives}/
-                    {annotationResult.activity.reference_count}
+                    {annotationResult.overall_relation.true_positives}/
+                    {annotationResult.overall_relation.reference_count}
                   </StatNumber>
                 </Stat>
               </StatGroup>
@@ -112,26 +72,26 @@ export default function RelationMetrics({
                 <Stat>
                   <StatLabel>F1-Score</StatLabel>
                   <StatNumber>
-                    {annotationResult.activity_data.f1_score}
+                    {annotationResult.actor_performer.f1_score}
                   </StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Recall</StatLabel>
                   <StatNumber>
-                    {annotationResult.activity_data.recall}
+                    {annotationResult.actor_performer.recall}
                   </StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Precision</StatLabel>
                   <StatNumber>
-                    {annotationResult.activity_data.precision}
+                    {annotationResult.actor_performer.precision}
                   </StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Absolute</StatLabel>
                   <StatNumber>
-                    {annotationResult.activity_data.true_positives}/
-                    {annotationResult.activity_data.reference_count}
+                    {annotationResult.actor_performer.true_positives}/
+                    {annotationResult.actor_performer.reference_count}
                   </StatNumber>
                 </Stat>
               </StatGroup>
@@ -141,26 +101,49 @@ export default function RelationMetrics({
                 <Stat>
                   <StatLabel>F1-Score</StatLabel>
                   <StatNumber>
-                    {annotationResult.further_specification.f1_score}
+                    {annotationResult.actor_recipient.f1_score}
                   </StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Recall</StatLabel>
                   <StatNumber>
-                    {annotationResult.further_specification.recall}
+                    {annotationResult.actor_recipient.recall}
                   </StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Precision</StatLabel>
                   <StatNumber>
-                    {annotationResult.further_specification.precision}
+                    {annotationResult.actor_recipient.precision}
                   </StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Absolute</StatLabel>
                   <StatNumber>
-                    {annotationResult.further_specification.true_positives}/
-                    {annotationResult.further_specification.reference_count}
+                    {annotationResult.actor_recipient.true_positives}/
+                    {annotationResult.actor_recipient.reference_count}
+                  </StatNumber>
+                </Stat>
+              </StatGroup>
+            </TabPanel>
+            <TabPanel>
+              <StatGroup>
+                <Stat>
+                  <StatLabel>F1-Score</StatLabel>
+                  <StatNumber>{annotationResult.flow.f1_score}</StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Recall</StatLabel>
+                  <StatNumber>{annotationResult.flow.recall}</StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Precision</StatLabel>
+                  <StatNumber>{annotationResult.flow.precision}</StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Absolute</StatLabel>
+                  <StatNumber>
+                    {annotationResult.flow.true_positives}/
+                    {annotationResult.flow.reference_count}
                   </StatNumber>
                 </Stat>
               </StatGroup>
@@ -170,51 +153,33 @@ export default function RelationMetrics({
                 <Stat>
                   <StatLabel>F1-Score</StatLabel>
                   <StatNumber>
-                    {annotationResult.xor_gateway.f1_score}
+                    {annotationResult.further_specification_relation.f1_score}
                   </StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Recall</StatLabel>
-                  <StatNumber>{annotationResult.xor_gateway.recall}</StatNumber>
+                  <StatNumber>
+                    {annotationResult.further_specification_relation.recall}
+                  </StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Precision</StatLabel>
                   <StatNumber>
-                    {annotationResult.xor_gateway.precision}
+                    {annotationResult.further_specification_relation.precision}
                   </StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Absolute</StatLabel>
                   <StatNumber>
-                    {annotationResult.xor_gateway.true_positives}/
-                    {annotationResult.xor_gateway.reference_count}
-                  </StatNumber>
-                </Stat>
-              </StatGroup>
-            </TabPanel>
-            <TabPanel>
-              <StatGroup>
-                <Stat>
-                  <StatLabel>F1-Score</StatLabel>
-                  <StatNumber>
-                    {annotationResult.and_gateway.f1_score}
-                  </StatNumber>
-                </Stat>
-                <Stat>
-                  <StatLabel>Recall</StatLabel>
-                  <StatNumber>{annotationResult.and_gateway.recall}</StatNumber>
-                </Stat>
-                <Stat>
-                  <StatLabel>Precision</StatLabel>
-                  <StatNumber>
-                    {annotationResult.and_gateway.precision}
-                  </StatNumber>
-                </Stat>
-                <Stat>
-                  <StatLabel>Absolute</StatLabel>
-                  <StatNumber>
-                    {annotationResult.and_gateway.true_positives}/
-                    {annotationResult.and_gateway.reference_count}
+                    {
+                      annotationResult.further_specification_relation
+                        .true_positives
+                    }
+                    /
+                    {
+                      annotationResult.further_specification_relation
+                        .reference_count
+                    }
                   </StatNumber>
                 </Stat>
               </StatGroup>

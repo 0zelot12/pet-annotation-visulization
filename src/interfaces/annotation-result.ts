@@ -4,6 +4,7 @@ import { Relation } from "./relation";
 
 export interface AnnotationResult {
   name: string;
+
   overall: Metrics;
   actor: Metrics;
   activity: Metrics;
@@ -12,6 +13,15 @@ export interface AnnotationResult {
   xor_gateway: Metrics;
   condition_specification: Metrics;
   further_specification: Metrics;
+
+  overall_relation: Metrics;
+  actor_performer: Metrics;
+  actor_recipient: Metrics;
+  uses: Metrics;
+  flow: Metrics;
+  same_gateway: Metrics;
+  further_specification_relation: Metrics;
+
   tokens: string[];
   present_entities: Entity[];
   recognized_entities: Entity[];
@@ -140,5 +150,73 @@ export function plainToClass(dataString: string): AnnotationResult {
         return { type: r.type, source: r.source, target: r.target };
       }
     ),
+    actor_performer: {
+      precision:
+        importedData.metrics.relation_metrics.actor_performer.precision,
+      recall: importedData.metrics.relation_metrics.actor_performer.recall,
+      f1_score: importedData.metrics.relation_metrics.actor_performer.f1_score,
+      true_positives:
+        importedData.metrics.relation_metrics.actor_performer.true_positives,
+      reference_count:
+        importedData.metrics.relation_metrics.actor_performer.reference_count,
+    },
+    actor_recipient: {
+      precision:
+        importedData.metrics.relation_metrics.actor_recipient.precision,
+      recall: importedData.metrics.relation_metrics.actor_recipient.recall,
+      f1_score: importedData.metrics.relation_metrics.actor_recipient.f1_score,
+      true_positives:
+        importedData.metrics.relation_metrics.actor_recipient.true_positives,
+      reference_count:
+        importedData.metrics.relation_metrics.actor_recipient.reference_count,
+    },
+    flow: {
+      precision: importedData.metrics.relation_metrics.flow.precision,
+      recall: importedData.metrics.relation_metrics.flow.recall,
+      f1_score: importedData.metrics.relation_metrics.flow.f1_score,
+      true_positives: importedData.metrics.relation_metrics.flow.true_positives,
+      reference_count:
+        importedData.metrics.relation_metrics.flow.reference_count,
+    },
+    further_specification_relation: {
+      precision:
+        importedData.metrics.relation_metrics.further_specification.precision,
+      recall:
+        importedData.metrics.relation_metrics.further_specification.recall,
+      f1_score:
+        importedData.metrics.relation_metrics.further_specification.f1_score,
+      true_positives:
+        importedData.metrics.relation_metrics.further_specification
+          .true_positives,
+      reference_count:
+        importedData.metrics.relation_metrics.further_specification
+          .reference_count,
+    },
+    overall_relation: {
+      precision: importedData.metrics.relation_metrics.overall.precision,
+      recall: importedData.metrics.relation_metrics.overall.recall,
+      f1_score: importedData.metrics.relation_metrics.overall.f1_score,
+      true_positives:
+        importedData.metrics.relation_metrics.overall.true_positives,
+      reference_count:
+        importedData.metrics.relation_metrics.overall.reference_count,
+    },
+    same_gateway: {
+      precision: importedData.metrics.relation_metrics.same_gateway.precision,
+      recall: importedData.metrics.relation_metrics.same_gateway.recall,
+      f1_score: importedData.metrics.relation_metrics.same_gateway.f1_score,
+      true_positives:
+        importedData.metrics.relation_metrics.same_gateway.true_positives,
+      reference_count:
+        importedData.metrics.relation_metrics.same_gateway.reference_count,
+    },
+    uses: {
+      precision: importedData.metrics.relation_metrics.uses.precision,
+      recall: importedData.metrics.relation_metrics.uses.recall,
+      f1_score: importedData.metrics.relation_metrics.uses.f1_score,
+      true_positives: importedData.metrics.relation_metrics.uses.true_positives,
+      reference_count:
+        importedData.metrics.relation_metrics.uses.reference_count,
+    },
   };
 }

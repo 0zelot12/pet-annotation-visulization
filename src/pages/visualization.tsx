@@ -123,7 +123,7 @@ export default function Visualization() {
               </Card>
               <Card>
                 <CardHeader>
-                  <Heading size="md">Reference Entities</Heading>
+                  <Heading size="md">Model Relations</Heading>
                 </CardHeader>
                 <CardBody>
                   <VStack spacing={4} align="start">

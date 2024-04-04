@@ -21,7 +21,6 @@ export interface AnnotationResult {
 
 export function plainToClass(dataString: string): AnnotationResult {
   const importedData = JSON.parse(dataString);
-  console.log(importedData);
   return {
     name: importedData.document_name,
     overall: {

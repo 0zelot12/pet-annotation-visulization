@@ -18,8 +18,8 @@ export const AnnotationText = React.memo(
     }
     return (
       <Text lineHeight={2}>
-        {result.map((r) => (
-          <Annotation type={r.type} text={r.tokens.join(" ")} />
+        {result.map((r, i) => (
+          <Annotation key={i} type={r.type} text={r.tokens.join(" ")} />
         ))}
       </Text>
     );

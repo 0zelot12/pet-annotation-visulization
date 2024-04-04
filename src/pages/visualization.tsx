@@ -127,8 +127,8 @@ export default function Visualization() {
                 </CardHeader>
                 <CardBody>
                   <VStack spacing={4} align="start">
-                    {annotationResult.recognized_relations.map((r) => (
-                      <RelationDisplay relation={r} />
+                    {annotationResult.recognized_relations.map((r, i) => (
+                      <RelationDisplay key={i} relation={r} />
                     ))}
                   </VStack>
                 </CardBody>

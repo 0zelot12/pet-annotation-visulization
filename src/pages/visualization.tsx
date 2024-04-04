@@ -90,7 +90,7 @@ export default function Visualization() {
               <CardBody>
                 <AnnotationText
                   tokens={annotationResult.tokens}
-                  entities={annotationResult.recognized_entities}
+                  entities={annotationResult.present_entities}
                 />
               </CardBody>
             </Card>
@@ -101,7 +101,7 @@ export default function Visualization() {
               <CardBody>
                 <AnnotationText
                   tokens={annotationResult.tokens}
-                  entities={annotationResult.present_entities}
+                  entities={annotationResult.recognized_entities}
                 />
               </CardBody>
             </Card>

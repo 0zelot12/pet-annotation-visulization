@@ -10,7 +10,13 @@ export const AnnotationText = React.memo(
       const matchedEntity = entities.find((e) => e.start_index === i);
       if (matchedEntity) {
         result.push({ type: matchedEntity.type, tokens: matchedEntity.tokens });
-        i += matchedEntity.tokens.length;
+        // TODO: Add feedback when this happens
+        if (matchedEntity.tokens.length === 0) {
+          i++;
+          continue;
+        } else {
+          i += matchedEntity.tokens.length;
+        }
       } else {
         result.push({ type: "O", tokens: [tokens[i]] });
         i++;

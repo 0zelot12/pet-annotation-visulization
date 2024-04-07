@@ -11,6 +11,10 @@ import {
   Flex,
   VStack,
   Button,
+  StatGroup,
+  Stat,
+  StatLabel,
+  StatNumber,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import {
@@ -81,6 +85,23 @@ export default function Visualization() {
       )}
       {annotationResult && !isLoading && (
         <>
+          <Card mt="24px">
+            <CardHeader>
+              <Heading size="md">Document overview</Heading>
+            </CardHeader>
+            <CardBody>
+              <StatGroup>
+                <Stat>
+                  <StatLabel>Name</StatLabel>
+                  <StatNumber>{annotationResult.name}</StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel>Number of tokens</StatLabel>
+                  <StatNumber>{annotationResult.tokens.length}</StatNumber>
+                </Stat>
+              </StatGroup>
+            </CardBody>
+          </Card>
           <EntityMetrics annotationResult={annotationResult} />
           <SimpleGrid columns={2} spacing={2} mt="24px">
             <Card>
